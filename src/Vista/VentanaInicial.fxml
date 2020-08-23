@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="978.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <left>
+      <HBox maxWidth="-Infinity" prefWidth="150.0" BorderPane.alignment="CENTER" />
+   </left>
+   <top>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" maxWidth="-Infinity" prefWidth="150.0" style="-fx-background-color: #0fbcf9;">
+               <children>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LASTFM" size="2.4em" />
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold;" text="Farmacia Milenio">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Text>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding></HBox>
+            <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>
