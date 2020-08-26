@@ -70,8 +70,8 @@ public class InicioSesion {
             Parent root1 = (Parent) loaderInicioAdmin.load();
             ventanaInicio = new Stage();
             ventanaInicio.setScene(new Scene(root1));
-            ventanaInicio.setResizable(false);
-            ventanaInicio.setTitle("Inventario");
+            
+            ventanaInicio.setTitle("Punto de venta");
             ventanaInicio.show();
         } else {
             Alert dialogoAlerta = new Alert(Alert.AlertType.WARNING);
@@ -84,7 +84,7 @@ public class InicioSesion {
             Parent root1 = (Parent) loaderInicioAdmin.load();
             ventanaInicio = new Stage();
             ventanaInicio.setScene(new Scene(root1));
-            ventanaInicio.setResizable(false);
+            
             ventanaInicio.show();
         }
     }
