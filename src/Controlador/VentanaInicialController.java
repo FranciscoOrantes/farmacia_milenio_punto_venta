@@ -50,4 +50,11 @@ public class VentanaInicialController implements Initializable {
         panePrincipal.setCenter(vista);    
     }
     
+     @FXML
+    public void cambiarVistaProveedores(){
+    FXMLoader objeto = new FXMLoader();
+        AnchorPane vista = objeto.getPage("Proveedores");
+        panePrincipal.setCenter(vista);    
+    }
+    
 }

@@ -25,12 +25,12 @@
                </font>
             </Text>
             <PasswordField fx:id="txtPassword" layoutX="80.0" layoutY="204.0" promptText="contraseña" styleClass="text-field" />
-            <ImageView fitWidth="20.0" layoutX="59.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitWidth="20.0" layoutX="50.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/usuario.png" />
                </image>
             </ImageView>
-            <ImageView fitWidth="20.0" layoutX="59.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitWidth="20.0" layoutX="50.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/candado.png" />
                </image>

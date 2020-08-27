@@ -80,8 +80,8 @@ public void registrar() throws SQLException, Exception {
             pass.setText("");
             comboTipos.valueProperty().set(null);
             btnRegistrar.setDisable(true);
-            UsuariosController usuarios = new UsuariosController();
-            usuarios.inicializarTablaUsuarios();
+     
+          
             
 
         }

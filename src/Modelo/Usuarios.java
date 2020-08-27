@@ -5,7 +5,6 @@
  */
 package Modelo;
 
-
 import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +22,6 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
-
 /**
  *
  * @author Francisco
@@ -32,14 +30,14 @@ public class Usuarios {
 
     Conexion con = new Conexion();
     Connection st = con.conectate();
-    
+
     public SimpleIntegerProperty id = new SimpleIntegerProperty();
     public SimpleStringProperty nombreT = new SimpleStringProperty();
     public SimpleStringProperty apellidoPaternoT = new SimpleStringProperty();
     public SimpleStringProperty apellidoMaternoT = new SimpleStringProperty();
     public SimpleStringProperty usuarioT = new SimpleStringProperty();
     public SimpleStringProperty tipo_usuarioT = new SimpleStringProperty();
-    
+
     private String usuario;
     private String password;
     private String tipo_usuario;
@@ -48,17 +46,18 @@ public class Usuarios {
     private String apellido_materno;
     private int usuario_id;
     private String llave_secreta = "KitronSoluciones";
-    
-    public Usuarios(){}
-    
-     public Usuarios(Integer id, String nombre, String apellidoPaterno, String apellidoMaterno, String usuario, String tipo_usuario) {
+
+    public Usuarios() {
+    }
+
+    public Usuarios(Integer id, String nombre, String apellidoPaterno, String apellidoMaterno, String usuario, String tipo_usuario) {
         this.id = new SimpleIntegerProperty(id);
         this.nombreT = new SimpleStringProperty(nombre);
         this.apellidoPaternoT = new SimpleStringProperty(apellidoPaterno);
         this.apellidoMaternoT = new SimpleStringProperty(apellidoMaterno);
         this.usuarioT = new SimpleStringProperty(usuario);
         this.tipo_usuarioT = new SimpleStringProperty(tipo_usuario);
-        
+
     }
 
     public Integer getId() {
@@ -104,9 +103,7 @@ public class Usuarios {
     public void setTipo_usuarioT(SimpleStringProperty tipo_usuarioT) {
         this.tipo_usuarioT = tipo_usuarioT;
     }
-    
-    
-    
+
     public String getUsuario() {
         return usuario;
     }
@@ -154,9 +151,9 @@ public class Usuarios {
     public void setApellido_materno(String apellido_materno) {
         this.apellido_materno = apellido_materno;
     }
-    
-    public String encriptar(){
-    String passwordEncriptada = "";
+
+    public String encriptar() {
+        String passwordEncriptada = "";
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             byte[] llavePassword = md5.digest(llave_secreta.getBytes("utf-8"));
@@ -170,7 +167,7 @@ public class Usuarios {
             passwordEncriptada = new String(base64Bytes);
         } catch (Exception e) {
         }
-    return passwordEncriptada;
+        return passwordEncriptada;
     }
 
     public void registrarUsuario() throws SQLException, Exception {
@@ -179,7 +176,7 @@ public class Usuarios {
         PreparedStatement pst = st.prepareStatement(
                 "INSERT INTO usuario(username,password,tipo_usuario) VALUES(?,?,?)");
         pst.setString(1, getUsuario());
-        pst.setString(2,password);
+        pst.setString(2, password);
         pst.setString(3, getTipo_usuario());
         int res = pst.executeUpdate();
         if (res > 0) {
@@ -220,14 +217,19 @@ public class Usuarios {
         pst.setString(4, getApellido_materno());
         int res = pst.executeUpdate();
         if (res > 0) {
-            Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
-            dialogoAlerta.setTitle("Exito");
-            dialogoAlerta.setHeaderText("Se han guardado los Datos");
-            dialogoAlerta.initStyle(StageStyle.UTILITY);
-            dialogoAlerta.showAndWait();
+            mensajeExito();
         }
     }
-     public static void llenarInfoUsuarios(ObservableList<Usuarios> lista) {
+
+    public void mensajeExito() {
+        Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+        dialogoAlerta.setTitle("Exito");
+        dialogoAlerta.setHeaderText("Se han guardado los Datos");
+        dialogoAlerta.initStyle(StageStyle.UTILITY);
+        dialogoAlerta.showAndWait();
+    }
+
+    public static void llenarInfoUsuarios(ObservableList<Usuarios> lista) {
         Conexion con = new Conexion();
         Connection st = con.conectate();
         ResultSet rs;
@@ -248,8 +250,6 @@ public class Usuarios {
                                 rs.getString("info_usuario.apellido_materno"),
                                 rs.getString("usuario.username"),
                                 rs.getString("usuario.tipo_usuario")
-                               
-                               
                         )
                 );
 
