@@ -13,7 +13,7 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="70.0" prefWidth="167.0" style="-fx-background-color: #0fbcf9;">
+            <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="48.0" prefWidth="187.0" style="-fx-background-color: #0fbcf9;">
                <children>
                   <ImageView fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -136,7 +136,7 @@
                   </Text>
                </children>
             </HBox>
-            <HBox styleClass="hover_border">
+            <HBox onMouseClicked="#cambiarVistaUsuarios" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -163,7 +163,7 @@
                <children>
                   <ImageView fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Imagenes/grupo.png" />
+                        <Image url="@../Imagenes/servicio.png" />
                      </image>
                   </ImageView>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="root" text="Proveedores">

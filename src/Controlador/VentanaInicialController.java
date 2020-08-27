@@ -36,19 +36,18 @@ public class VentanaInicialController implements Initializable {
         // TODO
          
     }    
-   
-    public void cambiarPane() throws IOException{
-    
-    }
     
    @FXML
     public void cambiarVista(){
-        
         FXMLoader objeto = new FXMLoader();
         AnchorPane vista = objeto.getPage("Productos");
-        panePrincipal.setCenter(vista);
-        
-        
+        panePrincipal.setCenter(vista);    
 }    
+    @FXML
+    public void cambiarVistaUsuarios(){
+    FXMLoader objeto = new FXMLoader();
+        AnchorPane vista = objeto.getPage("Usuarios");
+        panePrincipal.setCenter(vista);    
+    }
     
 }

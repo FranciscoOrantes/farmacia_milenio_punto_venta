@@ -3,17 +3,55 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.InicioSesionController">
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@../styles/login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.InicioSesionController">
+   <right>
+      <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <TextField fx:id="txtUsuario" alignment="TOP_LEFT" layoutX="204.0" layoutY="156.0" promptText="usuario" />
-            <PasswordField fx:id="txtPassword" alignment="TOP_LEFT" layoutX="204.0" layoutY="200.0" promptText="contraseña" />
-            <Button fx:id="btnInicio" layoutX="236.0" layoutY="246.0" mnemonicParsing="false" onAction="#iniciarSesion" text="Iniciar sesion" />
+            <TextField fx:id="txtUsuario" alignment="TOP_LEFT" layoutX="80.0" layoutY="151.0" promptText="usuario" styleClass="text-field" />
+            <Button fx:id="btnInicio" layoutX="79.0" layoutY="267.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="9.0" prefWidth="149.0" style="-fx-background-color: #199CB6;" text="Iniciar sesion" textFill="#fffefe">
+               <font>
+                  <Font name="Segoe UI Bold" size="12.0" />
+               </font></Button>
+            <Text fill="#0351a2" layoutX="80.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar Sesión">
+               <font>
+                  <Font name="Segoe UI Bold Italic" size="24.0" />
+               </font>
+            </Text>
+            <PasswordField fx:id="txtPassword" layoutX="80.0" layoutY="204.0" promptText="contraseña" styleClass="text-field" />
+            <ImageView fitWidth="20.0" layoutX="59.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/usuario.png" />
+               </image>
+            </ImageView>
+            <ImageView fitWidth="20.0" layoutX="59.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Imagenes/candado.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-   </center>
+   </right>
+   <left>
+      <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: WHITE; -fx-border-color: #B6B4B4; -fx-border-width: 0 2 0 0;" BorderPane.alignment="CENTER">
+         <children>
+            <Text fill="#059dc0" layoutX="43.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FARMACIA">
+               <font>
+                  <Font name="Segoe UI Bold" size="36.0" />
+               </font>
+            </Text>
+            <Text fill="#0351a2" layoutX="111.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MILENIO">
+               <font>
+                  <Font name="Segoe UI Bold" size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </left>
 </BorderPane>
