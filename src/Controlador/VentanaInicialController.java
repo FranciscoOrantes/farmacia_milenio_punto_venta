@@ -39,8 +39,10 @@ public class VentanaInicialController implements Initializable {
     
    @FXML
     public void cambiarVista(){
+        System.out.println("ENTRO AQUI ");
         FXMLoader objeto = new FXMLoader();
         AnchorPane vista = objeto.getPage("Productos");
+        System.out.println(vista);
         panePrincipal.setCenter(vista);    
 }    
     @FXML

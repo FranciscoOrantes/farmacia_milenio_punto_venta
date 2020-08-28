@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -24,6 +25,7 @@ public class Proveedores {
     Conexion con = new Conexion();
     Connection st = con.conectate();
     
+    private String razon_social;
     public String getRazonSocial() {
         return razonSocial;
     }
@@ -119,6 +121,11 @@ public class Proveedores {
         this.correoT = new SimpleStringProperty(correo);
 
     }
+    
+    public Proveedores(String razon_social){
+     this.razon_social = razon_social;
+    
+    }
 
     public static void llenarInfoProveedores(ObservableList<Proveedores> lista) {
     Conexion con = new Conexion();
@@ -174,5 +181,33 @@ public class Proveedores {
         dialogoAlerta.setHeaderText("Se han guardado los Datos");
         dialogoAlerta.initStyle(StageStyle.UTILITY);
         dialogoAlerta.showAndWait();
+    }
+    
+    public static void llenarListaProveedores(ArrayList<String> lista,ArrayList<Integer> listaId){
+     Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs;
+
+        try {
+            Statement execute = st.createStatement();
+
+            PreparedStatement pst = st.prepareStatement(
+                    "SELECT * FROM proveedor");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+
+                lista.add(
+                         rs.getString("proveedor.razon_social")       
+                );
+                listaId.add(
+                        rs.getInt("proveedor.id")
+                );
+
+            }
+
+        } catch (Exception e) {
+            System.err.println("excetpcion " + e);
+
+        }
     }
 }

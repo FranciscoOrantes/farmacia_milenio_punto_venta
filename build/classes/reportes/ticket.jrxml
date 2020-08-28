@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="164" pageHeight="600" columnWidth="124" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a70272f-03f2-4368-a00d-4d3668ee449e">
+	<property name="ireport.zoom" value="1.7715610000000015"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="38"/>
+	<parameter name="logo" class="java.io.InputStream"/>
+	<parameter name="fechahora" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="42" y="0" width="82" height="36" uuid="31df2786-ffdd-4eda-aa45-7b892a9ae902"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Farmacia Milenio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="124" height="12" uuid="fa8ac310-f95b-49b4-bf42-f451dcc5d00d"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Anonas esq Clavel Lote 10]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="42" height="36" uuid="ac56085e-6806-4298-81f6-50ae8cd4d44b"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="69" width="124" height="10" uuid="7f9bb5c9-26e0-48f3-8e7f-5664e0c45b0a"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechahora}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="47" width="124" height="12" uuid="1ee80852-e2aa-4c14-954f-1ecca07a89ee"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Tuxtla Gutiérrez Chiapas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="59" width="100" height="10" uuid="3602abf9-62bb-4500-8341-12a440c82467"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[961 123 5678]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="124" height="13" uuid="4ec01dd0-a5b4-4cd5-9e3d-26d2c54ea613"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Cajero: Francisco Orantes]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="18" width="42" height="18" uuid="8614540d-1996-4652-8786-22c3ca0fc307"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="18" width="50" height="18" uuid="64f2b183-40b5-468c-9350-25d567b1e3e2"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[PARACETAMOL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="18" width="33" height="18" uuid="81dd498d-878b-4001-91fb-d6c05ebda4ae"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[$30.00]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="1" width="42" height="16" uuid="8876b402-c6ac-4ce9-b782-df750f41a3a4"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CANTIDAD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="0" width="50" height="17" uuid="bd9add08-a494-4640-a61d-9871e8e659f4"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRODUCTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="0" width="32" height="17" uuid="80f2ac20-6405-419d-85d6-1957454c3f9e"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRECIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="92" y="36" width="32" height="18" uuid="99409e6f-86e9-438f-ba9e-c5f06001d50f"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[$60.00]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="42" y="36" width="50" height="18" uuid="49f4c1e2-1500-40dd-ac07-077a6515f514"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[NAPROXENO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="42" height="18" uuid="2e002b69-b2cd-4945-ad8b-beb877c7317d"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="21" width="122" height="32" uuid="4d9be7e2-8fac-4fbd-8164-d96b5b22de43"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARA CUALQUIER RECLAMACÓN ES NECESARIO PRESENTAR SU TICKET]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="44" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="66" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="1" width="42" height="15" uuid="fc0659ea-b9ad-4f9a-b37b-5116143c807c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="1" width="48" height="15" uuid="f2e3d57c-54f4-431d-8080-970ecf5714e9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[$80.00]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="39" width="47" height="15" uuid="0f034d53-77b5-445a-a758-6cb440a38f94"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[$20.00]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="16" width="42" height="23" uuid="4ae6777b-7439-4c64-b900-ea9699966770"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[EFECTIVO M.N]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="75" y="16" width="48" height="23" uuid="e5b6137a-cd2f-4e86-90bc-04f50162876b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[$100.00]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="33" y="39" width="42" height="15" uuid="df77c76f-1334-4417-9e44-7e0337d2d72f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CAMBIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="54" width="123" height="12" uuid="25969c51-7633-4ce6-88d1-7903a7f21d86"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[NÚMERO DE ARTÍCULOS: 3]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

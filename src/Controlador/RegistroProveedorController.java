@@ -69,7 +69,6 @@ public class RegistroProveedorController implements Initializable {
             direccionTxt.setText("");
             telefonoTxt.setText("");
             correoTxt.setText("");
-
         }
     }
 }
