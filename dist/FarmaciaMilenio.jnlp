@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="FarmaciaMilenio.jar" size="239719" download="eager" />
+    <jar href="FarmaciaMilenio.jar" size="292456" download="eager" />
     <jar href="lib\AbsoluteLayout.jar" size="2847" download="eager" />
     <jar href="lib\commons-codec-1.6-javadoc.jar" size="357085" download="eager" />
     <jar href="lib\commons-codec-1.6-sources.jar" size="243982" download="eager" />

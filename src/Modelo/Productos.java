@@ -8,6 +8,7 @@ package Modelo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -216,6 +217,15 @@ public class Productos {
 
     public Productos() {
     }
+    //Agregar a la tabla Ventas
+    public Productos(Integer id,int cantidad, String codigo, String descripcion, String nombre, Double precio) {
+        this.id = new SimpleIntegerProperty(id);
+        this.cantidadT = new SimpleIntegerProperty(cantidad);
+        this.codigoT = new SimpleStringProperty(codigo);
+        this.nombreT = new SimpleStringProperty(nombre);
+        this.descripcionT = new SimpleStringProperty(descripcion);
+        this.precioT = new SimpleDoubleProperty(precio);
+    }
 
     public Productos(Integer id, String codigo, String nombre, String descripcion, Double precio, Integer cantidad,
             String presentacion, String sustancia, String tipo, String rubro, String proveedor) {
@@ -278,6 +288,7 @@ public class Productos {
 
             PreparedStatement pst = st.prepareStatement(
                     "SELECT * FROM producto INNER JOIN proveedor ON producto.proveedor_id=proveedor.id");
+            
             rs = pst.executeQuery();
             while (rs.next()) {
 
@@ -302,6 +313,29 @@ public class Productos {
         } catch (Exception e) {
             System.err.println("excetpcion " + e);
 
+        }
+    }
+
+    public static void filtradoCodigo(ObservableList<Productos> lista,int cantidad, String codigo) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs;
+        Statement execute = st.createStatement();
+        PreparedStatement pst = st.prepareStatement(
+                "SELECT * FROM producto WHERE codigo_barras= ?");
+        pst.setString(1, codigo);
+        rs = pst.executeQuery();
+        while (rs.next()) {
+            lista.add(
+                    new Productos(
+                            rs.getInt("producto.id"),
+                            cantidad,
+                            rs.getString("producto.codigo_barras"),
+                            rs.getString("producto.descripcion"),
+                            rs.getString("producto.nombre"),
+                            rs.getDouble("producto.precio")
+                    )
+            );
         }
     }
 
