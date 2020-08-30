@@ -23,7 +23,8 @@ import javafx.stage.StageStyle;
  * @author Francisco
  */
 public class InicioSesion {
-
+    public static String nombreCompleto;
+    public static String rol;
     private String usuario;
     private String contraseña;
     public int idUsuarioActivo;
@@ -54,12 +55,14 @@ public class InicioSesion {
 
         Statement execute2 = st.createStatement();
         PreparedStatement pst2 = st.prepareStatement(
-                "SELECT * FROM usuario WHERE username= ? And password = ?");
+                "SELECT * FROM usuario INNER JOIN info_usuario ON usuario.id = info_usuario.usuario_id WHERE username= ? And password = ?");
         pst2.setString(1, this.getUsuario());
         pst2.setString(2, this.getContraseña());
         rs = pst2.executeQuery();
         if (rs.next()) {
             idUsuarioActivo = rs.getInt("id");
+            nombreCompleto = rs.getString("info_usuario.nombre")+ " "+ rs.getString("info_usuario.apellido_paterno")+ " "+rs.getString("info_usuario.apellido_materno");
+            rol = rs.getString("usuario.tipo_usuario");
             Alert dialogoAlerta = new Alert(Alert.AlertType.CONFIRMATION);
             dialogoAlerta.setTitle("Inicio de sesion");
             dialogoAlerta.setContentText("Iniciando sesion...");

@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 
 /**
  * FXML Controller class
@@ -82,5 +83,17 @@ public class RegistroProductoController implements Initializable {
         } catch (Exception e) {
         }
 
+    }
+    public void txtNumerico(KeyEvent evt) {
+        char car = evt.getCharacter().charAt(0);
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+    }
+     public void txtNumericoPunto(KeyEvent evt) {
+        char car = evt.getCharacter().charAt(0);
+        if ((car < '0' || car > '9') && (car > '.')) {
+            evt.consume();
+        }
     }
 }

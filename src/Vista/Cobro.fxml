@@ -5,13 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Controlador.CobroController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.CobroController">
    <children>
       <Text layoutX="153.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL:" />
       <Text fx:id="totalText" layoutX="210.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text layoutX="153.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PAGO:" />
-      <TextField fx:id="pagoTxt" layoutX="210.0" layoutY="138.0" />
+      <TextField fx:id="pagoTxt" layoutX="210.0" layoutY="138.0" onKeyTyped="#txtNumerico" />
       <Text layoutX="153.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CAMBIO:" />
       <Text fx:id="cambioText" layoutX="221.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Button layoutX="201.0" layoutY="229.0" mnemonicParsing="false" onAction="#imprimirTicket" text="Imprimir ticket" />

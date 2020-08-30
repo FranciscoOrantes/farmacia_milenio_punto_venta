@@ -22,10 +22,12 @@ import javafx.stage.StageStyle;
  * @author Francisco
  */
 public class Proveedores {
+
     Conexion con = new Conexion();
     Connection st = con.conectate();
-    
+
     private String razon_social;
+
     public String getRazonSocial() {
         return razonSocial;
     }
@@ -57,13 +59,12 @@ public class Proveedores {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
+
     private String razonSocial;
     private String direccion;
     private String telefono;
     private String correo;
-    
+
     public Integer getId() {
         return id.get();
     }
@@ -121,14 +122,14 @@ public class Proveedores {
         this.correoT = new SimpleStringProperty(correo);
 
     }
-    
-    public Proveedores(String razon_social){
-     this.razon_social = razon_social;
-    
+
+    public Proveedores(String razon_social) {
+        this.razon_social = razon_social;
+
     }
 
     public static void llenarInfoProveedores(ObservableList<Proveedores> lista) {
-    Conexion con = new Conexion();
+        Conexion con = new Conexion();
         Connection st = con.conectate();
         ResultSet rs;
 
@@ -146,7 +147,7 @@ public class Proveedores {
                                 rs.getString("proveedor.razon_social"),
                                 rs.getString("proveedor.direccion"),
                                 rs.getString("proveedor.telefono"),
-                                rs.getString("proveedor.correo")    
+                                rs.getString("proveedor.correo")
                         )
                 );
 
@@ -156,17 +157,16 @@ public class Proveedores {
             System.err.println("excetpcion " + e);
 
         }
-    
-    
+
     }
-    
+
     public void registrarProveedor() throws SQLException, Exception {
-       
+
         Statement execute = st.createStatement();
         PreparedStatement pst = st.prepareStatement(
                 "INSERT INTO proveedor(razon_social,direccion,telefono,correo) VALUES(?,?,?,?)");
         pst.setString(1, getRazonSocial());
-        pst.setString(2,getDireccion());
+        pst.setString(2, getDireccion());
         pst.setString(3, getTelefono());
         pst.setString(4, getCorreo());
         int res = pst.executeUpdate();
@@ -174,7 +174,7 @@ public class Proveedores {
             mensajeExito();
         }
     }
-    
+
     public void mensajeExito() {
         Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
         dialogoAlerta.setTitle("Exito");
@@ -182,9 +182,9 @@ public class Proveedores {
         dialogoAlerta.initStyle(StageStyle.UTILITY);
         dialogoAlerta.showAndWait();
     }
-    
-    public static void llenarListaProveedores(ArrayList<String> lista,ArrayList<Integer> listaId){
-     Conexion con = new Conexion();
+
+    public static void llenarListaProveedores(ArrayList<String> lista, ArrayList<Integer> listaId) {
+        Conexion con = new Conexion();
         Connection st = con.conectate();
         ResultSet rs;
 
@@ -197,7 +197,7 @@ public class Proveedores {
             while (rs.next()) {
 
                 lista.add(
-                         rs.getString("proveedor.razon_social")       
+                        rs.getString("proveedor.razon_social")
                 );
                 listaId.add(
                         rs.getInt("proveedor.id")
@@ -209,5 +209,42 @@ public class Proveedores {
             System.err.println("excetpcion " + e);
 
         }
+    }
+
+    public void actualizar() throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE proveedor SET razon_social = ?, direccion = ?, telefono = ?, correo = ? WHERE id = ?");
+
+           // pst.setString(1, nombre);
+            //pst.setString(2, apellidoPaterno);
+            //pst.setString(3, apellidoMaterno);
+            pst.setString(4, telefono);
+
+            //pst.setInt(5, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se han actualizado los Datos");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println("EXCEPCION " + e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        }
+        st.close();
+
     }
 }

@@ -260,4 +260,37 @@ public class Usuarios {
 
         }
     }
+    public void actualizar(int id, String nombre, String apellidoPaterno, String apellidoMaterno) throws SQLException{
+    Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE inu SET inu.nombre = ?, inu.apellido_paterno = ?, inu.apellido_materno = ?, us.username,us.rol FROM info_usuario inu INNER JOIN usuario us ON inu.usuario_id=us.id WHERE inu.usuario_id = ?");
+
+            pst.setString(1, nombre);
+            pst.setString(2, apellidoPaterno);
+            pst.setString(3, apellidoMaterno);
+            pst.setInt(8, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se han actualizado los Datos");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+           
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        }
+        st.close();
+    }
 }

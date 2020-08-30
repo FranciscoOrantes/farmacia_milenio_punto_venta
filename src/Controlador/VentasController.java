@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -72,7 +73,7 @@ public class VentasController implements Initializable {
     public static List<String> nombresProductos;
     public static List<Integer> cantidadProductos;
     public static List<Double> precioProductos;
-    
+
     public static Double importeTotal;
 
     /**
@@ -145,10 +146,8 @@ public class VentasController implements Initializable {
         precioProductos.add(precio);
     }
 
-    
-
     public void abrirVentanaCobro() throws IOException {
-        cantidad =Integer.parseInt(cantidadText.getText());
+        cantidad = Integer.parseInt(cantidadText.getText());
         loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/Cobro.fxml"));
         Parent root1 = (Parent) loaderInicioAdmin.load();
         ventanaInicio = new Stage();
@@ -185,6 +184,15 @@ public class VentasController implements Initializable {
         cantidadText.setText("");
         tablaVenta.getItems().clear();
         btnCancelarVenta.setDisable(true);
+    }
+
+    public void txtNumerico(KeyEvent evt) {
+
+        char car = evt.getCharacter().charAt(0);
+        if ((car < '0' || car > '9')) {
+            evt.consume();
+        }
+
     }
 
 }

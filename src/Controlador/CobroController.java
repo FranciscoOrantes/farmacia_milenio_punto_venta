@@ -75,5 +75,11 @@ public class CobroController implements Initializable {
         ticket.generarTicket(VentasController.cantidad, total,pago,cambio, VentasController.nombresProductos, VentasController.cantidadProductos, VentasController.precioProductos);
 
     }
+    public void txtNumerico(KeyEvent evt) {
+        char car = evt.getCharacter().charAt(0);
+        if ((car < '0' || car > '9') && (car > '.')) {
+            evt.consume();
+        }
+    }
 
 }

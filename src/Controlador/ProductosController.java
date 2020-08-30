@@ -21,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -91,4 +92,5 @@ public class ProductosController implements Initializable {
         rubroCol.setCellValueFactory(new PropertyValueFactory<Productos, String>("rubroT"));
         proveedorCol.setCellValueFactory(new PropertyValueFactory<Productos, String>("proveedorT"));
     }
+     
 }

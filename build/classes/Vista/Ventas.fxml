@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="535.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.VentasController">
    <children>
-      <TextField fx:id="cantidadTxt" layoutX="119.0" layoutY="76.0" prefHeight="25.0" prefWidth="36.0" />
+      <TextField fx:id="cantidadTxt" layoutX="119.0" layoutY="76.0" onKeyTyped="#txtNumerico" prefHeight="25.0" prefWidth="36.0" />
       <Text layoutX="54.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad" />
       <Text layoutX="396.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ventas" />
       <Text layoutX="173.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Código" />

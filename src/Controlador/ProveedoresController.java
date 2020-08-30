@@ -55,6 +55,7 @@ public class ProveedoresController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         proveedores = FXCollections.observableArrayList();
         this.inicializarTablaProveedores();
+        
     }    
     public void abrirVentanaRegistro() throws IOException{
     loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/RegistroProveedor.fxml"));
