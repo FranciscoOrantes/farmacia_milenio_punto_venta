@@ -26,7 +26,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class Reportes {
 
-    public void generarTicket(int articulosTotales,Double total, List<String> nombres, List<Integer> cantidades, List<Double> precios) {
+    public void generarTicket(int articulosTotales,Double total,Double pago, Double cambio, List<String> nombres, List<Integer> cantidades, List<Double> precios) {
         Date date = new Date();
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
         System.out.println("Hora: " + hourFormat.format(date));
@@ -44,6 +44,8 @@ public class Reportes {
             parametro.put("logo", this.getClass().getResourceAsStream(path2));
             parametro.put("fechahora", fechaHora);
             parametro.put("total", total);
+            parametro.put("pago",pago);
+            parametro.put("cambio",cambio);
             parametro.put("totalArticulos", articulosTotales);
             parametro.put("cantidades", cantidades);
             parametro.put("nombres", nombres);

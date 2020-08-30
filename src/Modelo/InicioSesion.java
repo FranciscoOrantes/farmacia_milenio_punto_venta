@@ -47,7 +47,7 @@ public class InicioSesion {
         this.contraseña = contraseña;
     }
 
-    public void iniciarSesion() throws SQLException, IOException {
+    public boolean iniciarSesion() throws SQLException, IOException {
         Conexion con = new Conexion();
         Connection st = con.conectate();
         ResultSet rs;
@@ -73,6 +73,7 @@ public class InicioSesion {
             
             ventanaInicio.setTitle("Punto de venta");
             ventanaInicio.show();
+            return true;
         } else {
             Alert dialogoAlerta = new Alert(Alert.AlertType.WARNING);
             dialogoAlerta.setTitle("Advertencia");
@@ -80,12 +81,8 @@ public class InicioSesion {
             dialogoAlerta.setContentText("Usuario o Contraseña incorrecta");
             dialogoAlerta.initStyle(StageStyle.UTILITY);
             dialogoAlerta.showAndWait();
-            loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/InicioSesion.fxml"));
-            Parent root1 = (Parent) loaderInicioAdmin.load();
-            ventanaInicio = new Stage();
-            ventanaInicio.setScene(new Scene(root1));
+            return false;
             
-            ventanaInicio.show();
         }
     }
 }

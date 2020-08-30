@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="164" pageHeight="600" columnWidth="124" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a70272f-03f2-4368-a00d-4d3668ee449e">
 	<property name="ireport.zoom" value="1.7715610000000015"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="429"/>
+	<property name="ireport.y" value="460"/>
 	<subDataset name="dataset1" uuid="4fed6268-cc15-4d32-8f12-af0af241248b">
 		<field name="_THIS" class="java.lang.Integer"/>
 	</subDataset>
@@ -19,6 +19,8 @@
 	<parameter name="nombres" class="java.util.List"/>
 	<parameter name="precios" class="java.util.List"/>
 	<parameter name="totalArticulos" class="java.lang.Integer"/>
+	<parameter name="pago" class="java.lang.Double"/>
+	<parameter name="cambio" class="java.lang.Double"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -182,25 +184,11 @@
 				<text><![CDATA[TOTAL:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="75" y="39" width="47" height="15" uuid="0f034d53-77b5-445a-a758-6cb440a38f94"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[$20.00]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="33" y="16" width="42" height="23" uuid="4ae6777b-7439-4c64-b900-ea9699966770"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<text><![CDATA[EFECTIVO M.N]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="75" y="16" width="48" height="23" uuid="e5b6137a-cd2f-4e86-90bc-04f50162876b"/>
-				<textElement>
-					<font size="8"/>
-				</textElement>
-				<text><![CDATA[$100.00]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="33" y="39" width="42" height="15" uuid="df77c76f-1334-4417-9e44-7e0337d2d72f"/>
@@ -229,6 +217,20 @@
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalArticulos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="16" width="49" height="23" uuid="004d22fc-a0d8-4c5b-8568-3def230b9589"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$" + $P{pago}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="38" width="49" height="16" uuid="1ae6f3c0-63c0-4d20-8bad-7f9fe6284088"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["$" + $P{cambio}]]></textFieldExpression>
 			</textField>
 		</band>
 	</summary>

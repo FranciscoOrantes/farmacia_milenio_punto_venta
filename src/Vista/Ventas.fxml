@@ -7,10 +7,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="535.0" prefWidth="792.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="Controlador.VentasController">
+<AnchorPane id="AnchorPane" prefHeight="535.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.VentasController">
    <children>
-      <Button layoutX="628.0" layoutY="321.0" mnemonicParsing="false" onAction="#imprimirTicket" text="Imprimir ticket" />
       <TextField fx:id="cantidadTxt" layoutX="119.0" layoutY="76.0" prefHeight="25.0" prefWidth="36.0" />
       <Text layoutX="54.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad" />
       <Text layoutX="396.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ventas" />
@@ -30,10 +28,9 @@
          </columnResizePolicy>
       </TableView>
       <Text layoutX="54.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantidad de productos : " />
-      <Button layoutX="119.0" layoutY="414.0" mnemonicParsing="false" text="Cancelar Venta" />
-      <Button layoutX="52.0" layoutY="414.0" mnemonicParsing="false" text="Salir" />
-      <Button layoutX="503.0" layoutY="76.0" mnemonicParsing="false" text="Eliminar producto" />
-      <Button layoutX="477.0" layoutY="414.0" mnemonicParsing="false" text="Cobrar" />
+      <Button fx:id="btnCancelarVenta" layoutX="59.0" layoutY="414.0" mnemonicParsing="false" onAction="#cancelarVenta" text="Cancelar Venta" />
+      <Button layoutX="503.0" layoutY="76.0" mnemonicParsing="false" onAction="#eliminarProducto" text="Eliminar producto" />
+      <Button layoutX="477.0" layoutY="414.0" mnemonicParsing="false" onAction="#abrirVentanaCobro" text="Cobrar" />
       <Text fx:id="cantidadText" layoutX="193.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text layoutX="279.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Importe total:" />
       <Text fx:id="importeText" layoutX="359.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" />
