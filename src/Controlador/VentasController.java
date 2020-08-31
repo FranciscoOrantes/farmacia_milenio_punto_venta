@@ -66,7 +66,7 @@ public class VentasController implements Initializable {
     private Text importeText;
     @FXML
     private Button btnCancelarVenta;
-    private ObservableList<Productos> productos;
+    public static ObservableList<Productos> productos;
     public static int cantidad;
     private String codigo;
     private int contador = 0;

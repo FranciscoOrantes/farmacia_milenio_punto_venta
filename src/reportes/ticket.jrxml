@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="164" pageHeight="600" columnWidth="124" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a70272f-03f2-4368-a00d-4d3668ee449e">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="158" pageHeight="600" columnWidth="118" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a70272f-03f2-4368-a00d-4d3668ee449e">
 	<property name="ireport.zoom" value="1.7715610000000015"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="460"/>
+	<property name="ireport.y" value="422"/>
 	<subDataset name="dataset1" uuid="4fed6268-cc15-4d32-8f12-af0af241248b">
 		<field name="_THIS" class="java.lang.Integer"/>
 	</subDataset>
@@ -27,14 +27,14 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="42" y="0" width="82" height="36" uuid="31df2786-ffdd-4eda-aa45-7b892a9ae902"/>
+				<reportElement x="42" y="0" width="76" height="36" uuid="31df2786-ffdd-4eda-aa45-7b892a9ae902"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<text><![CDATA[Farmacia Milenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="36" width="124" height="12" uuid="fa8ac310-f95b-49b4-bf42-f451dcc5d00d"/>
+				<reportElement x="0" y="36" width="118" height="12" uuid="fa8ac310-f95b-49b4-bf42-f451dcc5d00d"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
@@ -45,21 +45,21 @@
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="0" y="69" width="124" height="10" uuid="7f9bb5c9-26e0-48f3-8e7f-5664e0c45b0a"/>
+				<reportElement x="0" y="69" width="118" height="10" uuid="7f9bb5c9-26e0-48f3-8e7f-5664e0c45b0a"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechahora}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="47" width="124" height="12" uuid="1ee80852-e2aa-4c14-954f-1ecca07a89ee"/>
+				<reportElement x="0" y="47" width="118" height="12" uuid="1ee80852-e2aa-4c14-954f-1ecca07a89ee"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<text><![CDATA[Tuxtla Gutiérrez Chiapas]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="59" width="100" height="10" uuid="3602abf9-62bb-4500-8341-12a440c82467"/>
+				<reportElement x="0" y="59" width="118" height="10" uuid="3602abf9-62bb-4500-8341-12a440c82467"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
@@ -68,9 +68,9 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
+		<band height="10" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="124" height="13" uuid="4ec01dd0-a5b4-4cd5-9e3d-26d2c54ea613"/>
+				<reportElement x="0" y="0" width="118" height="10" uuid="4ec01dd0-a5b4-4cd5-9e3d-26d2c54ea613"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
@@ -84,28 +84,28 @@
 	<detail>
 		<band height="125" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="1" width="42" height="16" uuid="8876b402-c6ac-4ce9-b782-df750f41a3a4"/>
+				<reportElement x="0" y="1" width="33" height="16" uuid="8876b402-c6ac-4ce9-b782-df750f41a3a4"/>
 				<textElement>
 					<font size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CANTIDAD]]></text>
+				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="42" y="0" width="50" height="17" uuid="bd9add08-a494-4640-a61d-9871e8e659f4"/>
+				<reportElement x="33" y="1" width="50" height="17" uuid="bd9add08-a494-4640-a61d-9871e8e659f4"/>
 				<textElement>
 					<font size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PRODUCTO]]></text>
+				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="92" y="0" width="32" height="17" uuid="80f2ac20-6405-419d-85d6-1957454c3f9e"/>
+				<reportElement x="83" y="1" width="35" height="17" uuid="80f2ac20-6405-419d-85d6-1957454c3f9e"/>
 				<textElement>
 					<font size="7" isBold="true"/>
 				</textElement>
-				<text><![CDATA[PRECIO]]></text>
+				<text><![CDATA[Precio]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="0" y="17" width="42" height="12" uuid="5a3e2140-4185-46c7-8ed0-566f3a98debc"/>
+				<reportElement x="0" y="17" width="33" height="12" uuid="5a3e2140-4185-46c7-8ed0-566f3a98debc"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset1" uuid="04347c2d-d51c-4ef7-be39-25301e4dc0ff">
 						<datasetParameter name="REPORT_DATA_SOURCE">
@@ -113,9 +113,9 @@
 						</datasetParameter>
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{cantidades})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="12" width="42">
+					<jr:listContents height="12" width="33">
 						<textField>
-							<reportElement x="1" y="0" width="41" height="12" uuid="1207c92b-b225-432b-bf12-1dec1446ee31"/>
+							<reportElement x="0" y="0" width="33" height="12" uuid="1207c92b-b225-432b-bf12-1dec1446ee31"/>
 							<textElement>
 								<font size="7"/>
 							</textElement>
@@ -125,7 +125,7 @@
 				</jr:list>
 			</componentElement>
 			<componentElement>
-				<reportElement x="42" y="17" width="50" height="12" uuid="1a023231-233d-493f-9776-4923fcd59333"/>
+				<reportElement x="33" y="18" width="50" height="12" uuid="1a023231-233d-493f-9776-4923fcd59333"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset2" uuid="a8ab9d6e-3115-4f62-9ec0-966e14dd5e3b">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{nombres})]]></dataSourceExpression>
@@ -142,16 +142,16 @@
 				</jr:list>
 			</componentElement>
 			<componentElement>
-				<reportElement x="92" y="17" width="30" height="12" uuid="949b0416-81b9-4007-9c6c-89e61ae6a205"/>
+				<reportElement x="83" y="17" width="35" height="12" uuid="949b0416-81b9-4007-9c6c-89e61ae6a205"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset3" uuid="7ebf2c15-6609-4ca6-bc99-226f5450d961">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{precios})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="12" width="30">
+					<jr:listContents height="12" width="35">
 						<textField>
-							<reportElement x="0" y="0" width="30" height="12" uuid="bd33c941-e691-4fc8-9304-d94fea6e5568"/>
+							<reportElement x="0" y="0" width="35" height="12" uuid="bd33c941-e691-4fc8-9304-d94fea6e5568"/>
 							<textElement>
-								<font size="6"/>
+								<font size="7"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
 						</textField>
@@ -163,7 +163,7 @@
 	<columnFooter>
 		<band height="53" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="21" width="122" height="32" uuid="4d9be7e2-8fac-4fbd-8164-d96b5b22de43"/>
+				<reportElement x="1" y="0" width="117" height="53" uuid="4d9be7e2-8fac-4fbd-8164-d96b5b22de43"/>
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
@@ -205,28 +205,28 @@
 				<text><![CDATA[NÚMERO DE ARTÍCULOS:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="75" y="0" width="49" height="16" uuid="7d5d7c51-9a9b-4fe7-aad4-8e8d48a4cf6b"/>
+				<reportElement x="75" y="0" width="43" height="16" uuid="7d5d7c51-9a9b-4fe7-aad4-8e8d48a4cf6b"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["$" + $P{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="92" y="54" width="30" height="12" uuid="577a6143-b5f8-4af2-903e-fe3b6d8d4654"/>
+				<reportElement x="92" y="54" width="26" height="12" uuid="577a6143-b5f8-4af2-903e-fe3b6d8d4654"/>
 				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{totalArticulos}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="75" y="16" width="49" height="23" uuid="004d22fc-a0d8-4c5b-8568-3def230b9589"/>
+				<reportElement x="75" y="16" width="43" height="23" uuid="004d22fc-a0d8-4c5b-8568-3def230b9589"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["$" + $P{pago}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="75" y="38" width="49" height="16" uuid="1ae6f3c0-63c0-4d20-8bad-7f9fe6284088"/>
+				<reportElement x="75" y="38" width="43" height="16" uuid="1ae6f3c0-63c0-4d20-8bad-7f9fe6284088"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>

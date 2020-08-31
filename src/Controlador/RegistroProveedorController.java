@@ -7,12 +7,14 @@ package Controlador;
 
 import Modelo.Proveedores;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
 
 /**
@@ -32,21 +34,60 @@ public class RegistroProveedorController implements Initializable {
     public TextField correoTxt;
     @FXML
     public Button btnRegistrar;
-
+    @FXML
+    public Text textTitulo;
     private String razon_social;
     private String direccion;
     private String telefono;
     private String correo;
 
     /**
-     * Initializes the controller class.
+     * Initializes the cntroller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        textTitulo.setText(ProveedoresController.titulo);
+        btnRegistrar.setText(ProveedoresController.tituloBoton);
+        if (textTitulo.getText().equals("Actualizar Proveedor")) {
+            razon_socialTxt.setText(ProveedoresController.razon_social);
+            direccionTxt.setText(ProveedoresController.direccion);
+            telefonoTxt.setText(ProveedoresController.telefono);
+            correoTxt.setText(ProveedoresController.correo);
+        }
     }
 
     public void registrar() throws Exception {
+        if (btnRegistrar.getText().equals("Registrar")) {
+            if (razon_socialTxt.getText().equals("") || direccionTxt.getText().equals("") || telefonoTxt.getText().equals("") || correoTxt.getText().equals("")) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.WARNING);
+                dialogoAlerta.setTitle("Advertencia");
+                dialogoAlerta.setHeaderText("Campos No validos!");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            } else {
+                razon_social = razon_socialTxt.getText();
+                direccion = direccionTxt.getText();
+                telefono = telefonoTxt.getText();
+                correo = correoTxt.getText();
+
+                Proveedores proveedor = new Proveedores();
+                proveedor.setRazonSocial(razon_social);
+                proveedor.setDireccion(direccion);
+                proveedor.setTelefono(telefono);
+                proveedor.setCorreo(correo);
+                proveedor.registrarProveedor();
+                razon_socialTxt.setText("");
+                direccionTxt.setText("");
+                telefonoTxt.setText("");
+                correoTxt.setText("");
+            }
+        } else {
+            actualizar();
+        }
+    }
+
+    public void actualizar() throws SQLException {
+
         if (razon_socialTxt.getText().equals("") || direccionTxt.getText().equals("") || telefonoTxt.getText().equals("") || correoTxt.getText().equals("")) {
             Alert dialogoAlerta = new Alert(Alert.AlertType.WARNING);
             dialogoAlerta.setTitle("Advertencia");
@@ -58,17 +99,10 @@ public class RegistroProveedorController implements Initializable {
             direccion = direccionTxt.getText();
             telefono = telefonoTxt.getText();
             correo = correoTxt.getText();
-
             Proveedores proveedor = new Proveedores();
-            proveedor.setRazonSocial(razon_social);
-            proveedor.setDireccion(direccion);
-            proveedor.setTelefono(telefono);
-            proveedor.setCorreo(correo);
-            proveedor.registrarProveedor();
-            razon_socialTxt.setText("");
-            direccionTxt.setText("");
-            telefonoTxt.setText("");
-            correoTxt.setText("");
+            proveedor.actualizar(ProveedoresController.idProveedor, razon_social, direccion, telefono, correo);
+            ProveedoresController proveedores = new ProveedoresController();
+            proveedores.inicializarTablaProveedores();
         }
     }
 }

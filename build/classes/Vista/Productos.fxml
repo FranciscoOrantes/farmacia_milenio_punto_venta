@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="535.0" prefWidth="792.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ProductosController">
    <children>
-      <TableView fx:id="tablaProductos" layoutX="13.0" layoutY="103.0" prefHeight="411.0" prefWidth="761.0">
+      <TableView fx:id="tablaProductos" layoutX="13.0" layoutY="103.0" prefHeight="411.0" prefWidth="761.0" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="103.0">
         <columns>
           <TableColumn fx:id="codigoCol" prefWidth="58.0" text="Código" />
           <TableColumn fx:id="nombreCol" prefWidth="65.0" text="Nombre" />
@@ -30,11 +30,11 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Text fill="#0351a2" layoutX="333.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Productos">
+      <Text fill="#0351a2" layoutX="333.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Productos" AnchorPane.bottomAnchor="490.9765625" AnchorPane.leftAnchor="333.0" AnchorPane.rightAnchor="344.56640625" AnchorPane.topAnchor="12.0234375">
          <font>
             <Font name="Segoe UI Bold" size="24.0" />
          </font></Text>
-      <HBox layoutX="79.0" layoutY="53.0" prefHeight="28.0" prefWidth="225.0">
+      <HBox layoutX="79.0" layoutY="53.0" prefHeight="28.0" prefWidth="225.0" AnchorPane.bottomAnchor="454.0" AnchorPane.leftAnchor="79.0" AnchorPane.rightAnchor="488.0" AnchorPane.topAnchor="53.0">
          <children>
             <TextField promptText="Código" style="-fx-background-color: transparent;" />
             <Button mnemonicParsing="false" text="Buscar">

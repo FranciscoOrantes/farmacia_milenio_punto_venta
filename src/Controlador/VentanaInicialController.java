@@ -40,7 +40,7 @@ public class VentanaInicialController implements Initializable {
     public BorderPane panePrincipal;
     static Stage ventanaInicio;
     static FXMLLoader loaderInicioAdmin;
-    
+
     @FXML
     public Text txtFecha;
     @FXML
@@ -88,6 +88,13 @@ public class VentanaInicialController implements Initializable {
         panePrincipal.setCenter(vista);
     }
 
+    @FXML
+    public void cambiarVistaCorteCaja() {
+        FXMLoader objeto = new FXMLoader();
+        AnchorPane vista = objeto.getPage("CorteCaja");
+        panePrincipal.setCenter(vista);
+    }
+
     public void obtenerFecha() {
         Date objDate = new Date(); // Sistema actual La fecha y la hora se asignan a objDate 
         String strDateFormat = "dd-MM-yyyy"; // El formato de fecha está especificado  
@@ -101,13 +108,13 @@ public class VentanaInicialController implements Initializable {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
-        
+
         loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/InicioSesion.fxml"));
-            Parent root1 = (Parent) loaderInicioAdmin.load();
-            ventanaInicio = new Stage();
-            ventanaInicio.setScene(new Scene(root1));
-            
-            ventanaInicio.setTitle("Inicio de sesión");
-            ventanaInicio.show();
+        Parent root1 = (Parent) loaderInicioAdmin.load();
+        ventanaInicio = new Stage();
+        ventanaInicio.setScene(new Scene(root1));
+
+        ventanaInicio.setTitle("Inicio de sesión");
+        ventanaInicio.show();
     }
 }

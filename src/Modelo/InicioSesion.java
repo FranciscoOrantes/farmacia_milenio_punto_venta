@@ -27,7 +27,7 @@ public class InicioSesion {
     public static String rol;
     private String usuario;
     private String contraseña;
-    public int idUsuarioActivo;
+    public static int idUsuarioActivo;
     static Stage ventanaInicio;
     static Stage ventanaLogin;
     static FXMLLoader loaderInicioAdmin;

@@ -219,13 +219,12 @@ public class Proveedores {
             Statement execute = st.createStatement();
             PreparedStatement pst = st.prepareStatement("UPDATE proveedor SET razon_social = ?, direccion = ?, telefono = ?, correo = ? WHERE id = ?");
 
-           // pst.setString(1, nombre);
+            // pst.setString(1, nombre);
             //pst.setString(2, apellidoPaterno);
             //pst.setString(3, apellidoMaterno);
             pst.setString(4, telefono);
 
             //pst.setInt(5, id);
-
             int res = pst.executeUpdate();
 
             if (res > 0) {
@@ -246,5 +245,40 @@ public class Proveedores {
         }
         st.close();
 
+    }
+
+    public void actualizar(int id, String razon, String direccion, String telefono, String correo) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE proveedor SET razon_social = ?, direccion = ?, telefono = ?, correo = ? WHERE id = ?");
+
+            pst.setString(1, razon);
+            pst.setString(2, direccion);
+            pst.setString(3, telefono);
+            pst.setString(4, correo);
+            pst.setInt(5, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se han actualizado los Datos");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        }
+        st.close();
     }
 }

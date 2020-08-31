@@ -5,6 +5,8 @@
  */
 package Modelo;
 
+import Controlador.VentasController;
+import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -63,5 +65,39 @@ public class Reportes {
             System.err.println("Heey " + e);
 
         }
+    }
+    public void generarCorteCaja(String fecha,Double total,List<String>productos,List<String>codigos,List<Integer>cantidades,
+            List<Double>montos,List<String>cajeros){
+    JRDataSource jr = new JREmptyDataSource();
+    try{
+        JasperReport ticket = null;
+        String path = "/reportes/cortecaja.jasper";
+       
+        Map parametro = new HashMap();
+        parametro.put("fecha", fecha);
+        parametro.put("total", total);
+        parametro.put("productos", productos);
+        parametro.put("folios", codigos);
+        parametro.put("cantidades", cantidades);
+        parametro.put("montos", montos);
+        parametro.put("cajeros", cajeros);
+        
+      
+         ticket = (JasperReport) JRLoader.loadObject(getClass().getResource(path));
+         
+          JasperPrint jprint = JasperFillManager.fillReport(ticket, parametro,jr);
+          
+          
+
+        JasperViewer view = new JasperViewer(jprint, false);
+       
+        view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+        view.setVisible(true);
+            }catch(Exception e){
+        System.err.println("Heey " +e);
+        
+            
+            }
     }
 }

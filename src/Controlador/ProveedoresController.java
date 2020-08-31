@@ -30,9 +30,11 @@ import javafx.stage.Stage;
  * @author Francisco
  */
 public class ProveedoresController implements Initializable {
+
     @FXML
     public Button btnModalProveedor;
-    
+    @FXML
+    public Button btnEditar;
     @FXML
     private TableView<Proveedores> tablaProveedores;
     @FXML
@@ -43,11 +45,18 @@ public class ProveedoresController implements Initializable {
     private TableColumn telefonoCol;
     @FXML
     private TableColumn correoCol;
-    
+    public static String titulo;
+    public static String tituloBoton;
+    public static int idProveedor;
+    public static String razon_social;
+    public static String telefono;
+    public static String direccion;
+    public static String correo;
     private ObservableList<Proveedores> proveedores;
-    
+
     static Stage ventanaInicio;
     static FXMLLoader loaderInicioAdmin;
+
     /**
      * Initializes the controller class.
      */
@@ -55,19 +64,23 @@ public class ProveedoresController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         proveedores = FXCollections.observableArrayList();
         this.inicializarTablaProveedores();
-        
-    }    
-    public void abrirVentanaRegistro() throws IOException{
-    loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/RegistroProveedor.fxml"));
+        btnEditar.setDisable(true);
+
+    }
+
+    public void abrirVentanaRegistro() throws IOException {
+        titulo = "Registrar Proveedor";
+        tituloBoton = "Registrar";
+        loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/RegistroProveedor.fxml"));
         Parent root1 = (Parent) loaderInicioAdmin.load();
         ventanaInicio = new Stage();
         ventanaInicio.setScene(new Scene(root1));
 
         ventanaInicio.show();
     }
-    
-    public void inicializarTablaProveedores(){
-    
+
+    public void inicializarTablaProveedores() {
+
         proveedores = FXCollections.observableArrayList();
         Proveedores.llenarInfoProveedores(proveedores);
         tablaProveedores.setItems(proveedores);
@@ -75,5 +88,26 @@ public class ProveedoresController implements Initializable {
         direccionCol.setCellValueFactory(new PropertyValueFactory<Usuarios, String>("direccionT"));
         telefonoCol.setCellValueFactory(new PropertyValueFactory<Usuarios, String>("telefonoT"));
         correoCol.setCellValueFactory(new PropertyValueFactory<Usuarios, String>("correoT"));
+    }
+
+    public void actualizarProveedor() throws IOException {
+        titulo = "Actualizar Proveedor";
+        tituloBoton = "Actualizar";
+        loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/RegistroProveedor.fxml"));
+        Parent root1 = (Parent) loaderInicioAdmin.load();
+        ventanaInicio = new Stage();
+        ventanaInicio.setScene(new Scene(root1));
+
+        ventanaInicio.show();
+    }
+
+    public void seleccionProveedor() {
+        btnEditar.setDisable(false);
+        Proveedores proveedor = tablaProveedores.getSelectionModel().getSelectedItem();
+        idProveedor = proveedor.getId();
+        razon_social = proveedor.getRazon_socialT();
+        direccion = proveedor.getDireccionT();
+        telefono = proveedor.getTelefonoT();
+        correo = proveedor.getCorreoT();
     }
 }

@@ -14,23 +14,23 @@
    <right>
       <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER_LEFT">
          <children>
-            <TextField fx:id="txtUsuario" alignment="TOP_LEFT" layoutX="80.0" layoutY="151.0" promptText="usuario" styleClass="text-field" />
-            <Button fx:id="btnInicio" layoutX="80.0" layoutY="257.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="27.0" prefWidth="149.0" style="-fx-background-color: #199CB6;" text="Iniciar sesion" textFill="#fffefe">
+            <TextField fx:id="txtUsuario" alignment="TOP_LEFT" layoutX="80.0" layoutY="151.0" promptText="usuario" styleClass="text-field" AnchorPane.bottomAnchor="222.0" AnchorPane.leftAnchor="80.0" />
+            <Button fx:id="btnInicio" layoutX="80.0" layoutY="257.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="27.0" prefWidth="149.0" style="-fx-background-color: #199CB6;" text="Iniciar sesion" textFill="#fffefe" AnchorPane.bottomAnchor="116.0" AnchorPane.leftAnchor="80.0">
                <font>
                   <Font name="Segoe UI Bold" size="12.0" />
                </font></Button>
-            <Text fill="#0351a2" layoutX="80.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar Sesión">
+            <Text fill="#0351a2" layoutX="80.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Iniciar Sesión" AnchorPane.bottomAnchor="293.9765625" AnchorPane.leftAnchor="80.0">
                <font>
                   <Font name="Segoe UI Bold Italic" size="24.0" />
                </font>
             </Text>
-            <PasswordField fx:id="txtPassword" layoutX="80.0" layoutY="204.0" promptText="contraseña" styleClass="text-field" />
-            <ImageView fitWidth="20.0" layoutX="50.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+            <PasswordField fx:id="txtPassword" layoutX="80.0" layoutY="204.0" promptText="contraseña" styleClass="text-field" AnchorPane.bottomAnchor="169.0" AnchorPane.leftAnchor="80.0" />
+            <ImageView fitWidth="20.0" layoutX="50.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="226.0" AnchorPane.leftAnchor="50.0">
                <image>
                   <Image url="@../Imagenes/usuario.png" />
                </image>
             </ImageView>
-            <ImageView fitWidth="20.0" layoutX="50.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitWidth="20.0" layoutX="50.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="173.0" AnchorPane.leftAnchor="50.0">
                <image>
                   <Image url="@../Imagenes/candado.png" />
                </image>
@@ -41,12 +41,12 @@
    <left>
       <AnchorPane prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: WHITE; -fx-border-color: #B6B4B4; -fx-border-width: 0 2 0 0;" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#059dc0" layoutX="43.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FARMACIA">
+            <Text fill="#059dc0" layoutX="43.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FARMACIA" AnchorPane.bottomAnchor="188.96484375" AnchorPane.leftAnchor="43.0">
                <font>
                   <Font name="Segoe UI Bold" size="36.0" />
                </font>
             </Text>
-            <Text fill="#0351a2" layoutX="111.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MILENIO">
+            <Text fill="#0351a2" layoutX="111.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MILENIO" AnchorPane.bottomAnchor="146.96484375" AnchorPane.leftAnchor="111.0">
                <font>
                   <Font name="Segoe UI Bold" size="36.0" />
                </font>

@@ -8,11 +8,15 @@ package Controlador;
 import static Controlador.VentasController.cantidadProductos;
 import static Controlador.VentasController.nombresProductos;
 import static Controlador.VentasController.precioProductos;
+import Modelo.InicioSesion;
 import Modelo.Reportes;
+import Modelo.Ventas;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -67,13 +71,13 @@ public class CobroController implements Initializable {
         }
     });
     }
-    public void imprimirTicket() {
+    public void imprimirTicket() throws SQLException {
         pago = Double.parseDouble(pagoTxt.getText());
         cambio = Double.parseDouble(cambioText.getText());
         
         Reportes ticket = new Reportes();
         ticket.generarTicket(VentasController.cantidad, total,pago,cambio, VentasController.nombresProductos, VentasController.cantidadProductos, VentasController.precioProductos);
-
+        registrarVenta();
     }
     public void txtNumerico(KeyEvent evt) {
         char car = evt.getCharacter().charAt(0);
@@ -81,5 +85,14 @@ public class CobroController implements Initializable {
             evt.consume();
         }
     }
+    public void registrarVenta() throws SQLException{
+    Date objDate = new Date(); // Sistema actual La fecha y la hora se asignan a objDate 
+    String strDateFormat = "dd-MM-yyyy"; // El formato de fecha está especificado  
+    SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+    
+    String fecha = objSDF.format(objDate);
+    Ventas.registrarVentas(VentasController.cantidadProductos,VentasController.productos, fecha,InicioSesion.idUsuarioActivo);
+    }
+    
 
 }

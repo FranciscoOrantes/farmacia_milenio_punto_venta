@@ -30,7 +30,7 @@ public class FarmaciaMilenio extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/Vista/InicioSesion.fxml"));
         Scene scene = new Scene(root);
         ventanaLogin.setScene(scene);
-       
+        ventanaLogin.setResizable(false);
         ventanaLogin.show();
     }
 

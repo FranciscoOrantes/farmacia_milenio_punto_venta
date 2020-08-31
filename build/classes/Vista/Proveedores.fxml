@@ -9,10 +9,11 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="AnchorPane" prefHeight="535.0" prefWidth="792.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.ProveedoresController">
    <children>
-      <TableView fx:id="tablaProveedores" layoutX="111.0" layoutY="107.0" prefHeight="365.0" prefWidth="620.0">
+      <TableView fx:id="tablaProveedores" layoutX="111.0" layoutY="107.0" onMouseClicked="#seleccionProveedor" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="107.0">
         <columns>
           <TableColumn fx:id="razon_socialCol" prefWidth="182.0" text="Razón Social" />
           <TableColumn fx:id="direccionCol" prefWidth="149.0" text="Dirección" />
@@ -24,9 +25,8 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <HBox layoutX="111.0" layoutY="69.0">
+      <HBox layoutX="103.0" layoutY="69.0">
          <children>
-            <TextField />
             <ImageView fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Imagenes/lupa.png" />
@@ -35,9 +35,15 @@
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </ImageView>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+            </Text>
+            <TextField />
          </children>
       </HBox>
-      <Button fx:id="btnModalProveedor" layoutX="665.0" layoutY="69.0" mnemonicParsing="false" onAction="#abrirVentanaRegistro" text="Agregar" />
+      <Button fx:id="btnModalProveedor" layoutX="512.0" layoutY="69.0" mnemonicParsing="false" onAction="#abrirVentanaRegistro" text="Agregar" />
+      <Button fx:id="btnEditar" layoutX="649.0" layoutY="69.0" mnemonicParsing="false" onAction="#actualizarProveedor" text="Editar" />
    </children>
 </AnchorPane>
-
