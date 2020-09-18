@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="158" pageHeight="600" columnWidth="118" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a70272f-03f2-4368-a00d-4d3668ee449e">
-	<property name="ireport.zoom" value="1.7715610000000015"/>
+	<property name="ireport.zoom" value="1.1000000000000012"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="422"/>
+	<property name="ireport.y" value="128"/>
 	<subDataset name="dataset1" uuid="4fed6268-cc15-4d32-8f12-af0af241248b">
 		<field name="_THIS" class="java.lang.Integer"/>
 	</subDataset>
@@ -21,6 +21,7 @@
 	<parameter name="totalArticulos" class="java.lang.Integer"/>
 	<parameter name="pago" class="java.lang.Double"/>
 	<parameter name="cambio" class="java.lang.Double"/>
+	<parameter name="cajero" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -36,9 +37,9 @@
 			<staticText>
 				<reportElement x="0" y="36" width="118" height="12" uuid="fa8ac310-f95b-49b4-bf42-f451dcc5d00d"/>
 				<textElement>
-					<font size="7"/>
+					<font size="6"/>
 				</textElement>
-				<text><![CDATA[Anonas esq Clavel Lote 10]]></text>
+				<text><![CDATA[20 de noviembre barrio San Vicente]]></text>
 			</staticText>
 			<image>
 				<reportElement x="0" y="0" width="42" height="36" uuid="ac56085e-6806-4298-81f6-50ae8cd4d44b"/>
@@ -47,35 +48,42 @@
 			<textField>
 				<reportElement x="0" y="69" width="118" height="10" uuid="7f9bb5c9-26e0-48f3-8e7f-5664e0c45b0a"/>
 				<textElement>
-					<font size="7"/>
+					<font size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{fechahora}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="47" width="118" height="12" uuid="1ee80852-e2aa-4c14-954f-1ecca07a89ee"/>
 				<textElement>
-					<font size="7"/>
+					<font size="6"/>
 				</textElement>
-				<text><![CDATA[Tuxtla Gutiérrez Chiapas]]></text>
+				<text><![CDATA[Anexo al Milenio 2 Motozintla Chiapas]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="59" width="118" height="10" uuid="3602abf9-62bb-4500-8341-12a440c82467"/>
 				<textElement>
-					<font size="7"/>
+					<font size="6"/>
 				</textElement>
-				<text><![CDATA[961 123 5678]]></text>
+				<text><![CDATA[962 239 1426]]></text>
 			</staticText>
 		</band>
 	</title>
 	<pageHeader>
 		<band height="10" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="0" width="118" height="10" uuid="4ec01dd0-a5b4-4cd5-9e3d-26d2c54ea613"/>
+				<reportElement x="0" y="0" width="33" height="10" uuid="4ec01dd0-a5b4-4cd5-9e3d-26d2c54ea613"/>
 				<textElement>
-					<font size="7"/>
+					<font size="6"/>
 				</textElement>
-				<text><![CDATA[Cajero: Francisco Orantes]]></text>
+				<text><![CDATA[Cajero:]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="26" y="0" width="92" height="10" uuid="3f0f124c-968d-435f-b3b8-16c06f94bfef"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cajero}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -84,23 +92,23 @@
 	<detail>
 		<band height="125" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="1" width="33" height="16" uuid="8876b402-c6ac-4ce9-b782-df750f41a3a4"/>
+				<reportElement x="0" y="1" width="33" height="17" uuid="8876b402-c6ac-4ce9-b782-df750f41a3a4"/>
 				<textElement>
-					<font size="7" isBold="true"/>
+					<font size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="33" y="1" width="50" height="17" uuid="bd9add08-a494-4640-a61d-9871e8e659f4"/>
 				<textElement>
-					<font size="7" isBold="true"/>
+					<font size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="83" y="1" width="35" height="17" uuid="80f2ac20-6405-419d-85d6-1957454c3f9e"/>
 				<textElement>
-					<font size="7" isBold="true"/>
+					<font size="6" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Precio]]></text>
 			</staticText>
@@ -117,7 +125,7 @@
 						<textField>
 							<reportElement x="0" y="0" width="33" height="12" uuid="1207c92b-b225-432b-bf12-1dec1446ee31"/>
 							<textElement>
-								<font size="7"/>
+								<font size="6"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
 						</textField>
@@ -125,7 +133,7 @@
 				</jr:list>
 			</componentElement>
 			<componentElement>
-				<reportElement x="33" y="18" width="50" height="12" uuid="1a023231-233d-493f-9776-4923fcd59333"/>
+				<reportElement x="33" y="17" width="50" height="12" uuid="1a023231-233d-493f-9776-4923fcd59333"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset2" uuid="a8ab9d6e-3115-4f62-9ec0-966e14dd5e3b">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{nombres})]]></dataSourceExpression>
@@ -134,7 +142,7 @@
 						<textField>
 							<reportElement x="0" y="0" width="50" height="12" uuid="ec25d95e-49ca-4bd3-afd3-39f5dd5e4015"/>
 							<textElement>
-								<font size="7"/>
+								<font size="6"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
 						</textField>
@@ -151,7 +159,7 @@
 						<textField>
 							<reportElement x="0" y="0" width="35" height="12" uuid="bd33c941-e691-4fc8-9304-d94fea6e5568"/>
 							<textElement>
-								<font size="7"/>
+								<font size="6"/>
 							</textElement>
 							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
 						</textField>
@@ -165,7 +173,7 @@
 			<staticText>
 				<reportElement x="1" y="0" width="117" height="53" uuid="4d9be7e2-8fac-4fbd-8164-d96b5b22de43"/>
 				<textElement>
-					<font size="8" isBold="true"/>
+					<font size="7" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PARA CUALQUIER RECLAMACÓN ES NECESARIO PRESENTAR SU TICKET]]></text>
 			</staticText>
@@ -179,21 +187,21 @@
 			<staticText>
 				<reportElement x="33" y="1" width="42" height="15" uuid="fc0659ea-b9ad-4f9a-b37b-5116143c807c"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
 				<text><![CDATA[TOTAL:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="33" y="16" width="42" height="23" uuid="4ae6777b-7439-4c64-b900-ea9699966770"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
 				<text><![CDATA[EFECTIVO M.N]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="33" y="39" width="42" height="15" uuid="df77c76f-1334-4417-9e44-7e0337d2d72f"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
 				<text><![CDATA[CAMBIO]]></text>
 			</staticText>
@@ -207,7 +215,7 @@
 			<textField>
 				<reportElement x="75" y="0" width="43" height="16" uuid="7d5d7c51-9a9b-4fe7-aad4-8e8d48a4cf6b"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA["$" + $P{total}]]></textFieldExpression>
 			</textField>
@@ -221,14 +229,14 @@
 			<textField>
 				<reportElement x="75" y="16" width="43" height="23" uuid="004d22fc-a0d8-4c5b-8568-3def230b9589"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA["$" + $P{pago}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="75" y="38" width="43" height="16" uuid="1ae6f3c0-63c0-4d20-8bad-7f9fe6284088"/>
 				<textElement>
-					<font size="8"/>
+					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA["$" + $P{cambio}]]></textFieldExpression>
 			</textField>

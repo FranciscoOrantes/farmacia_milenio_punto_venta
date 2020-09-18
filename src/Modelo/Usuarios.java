@@ -38,6 +38,15 @@ public class Usuarios {
     public SimpleStringProperty usuarioT = new SimpleStringProperty();
     public SimpleStringProperty tipo_usuarioT = new SimpleStringProperty();
 
+    public String getStatusT() {
+        return statusT.get();
+    }
+
+    public void setStatusT(SimpleStringProperty statusT) {
+        this.statusT = statusT;
+    }
+    public SimpleStringProperty statusT = new SimpleStringProperty();
+
     private String usuario;
     private String password;
     private String tipo_usuario;
@@ -45,18 +54,19 @@ public class Usuarios {
     private String apellido_paterno;
     private String apellido_materno;
     private int usuario_id;
-    private String llave_secreta = "KitronSoluciones";
-
+    private String llave_secreta = "KirtronSoluciones";
+    private String existe;
     public Usuarios() {
     }
 
-    public Usuarios(Integer id, String nombre, String apellidoPaterno, String apellidoMaterno, String usuario, String tipo_usuario) {
+    public Usuarios(Integer id, String nombre, String apellidoPaterno, String apellidoMaterno, String usuario, String tipo_usuario,String status) {
         this.id = new SimpleIntegerProperty(id);
         this.nombreT = new SimpleStringProperty(nombre);
         this.apellidoPaternoT = new SimpleStringProperty(apellidoPaterno);
         this.apellidoMaternoT = new SimpleStringProperty(apellidoMaterno);
         this.usuarioT = new SimpleStringProperty(usuario);
         this.tipo_usuarioT = new SimpleStringProperty(tipo_usuario);
+        this.statusT = new SimpleStringProperty(status);
 
     }
 
@@ -169,18 +179,56 @@ public class Usuarios {
         }
         return passwordEncriptada;
     }
+    
+   
+    
+    public void checarUsuario(String usuario){
+    Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs;
 
+        try {
+            Statement execute = st.createStatement();
+
+            PreparedStatement pst = st.prepareStatement(
+                    "SELECT username FROM usuario WHERE username=? AND status='Alta'");
+            pst.setString(1, usuario);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                existe="Si";
+            }else{
+            existe = "No";
+            }
+
+        } catch (Exception e) {
+            System.err.println("excetpcion " + e);
+
+        }
+   
+    }
+    
     public void registrarUsuario() throws SQLException, Exception {
+        checarUsuario(getUsuario());
+        if(existe.equals("Si")){
+         Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Este usuario ya existe");
+            dialogoAlerta.setContentText("Por favor ponga otro nombre de usuario");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        }else{
         password = encriptar();
         Statement execute = st.createStatement();
         PreparedStatement pst = st.prepareStatement(
-                "INSERT INTO usuario(username,password,tipo_usuario) VALUES(?,?,?)");
+                "INSERT INTO usuario(username,password,tipo_usuario,status) VALUES(?,?,?,?)");
         pst.setString(1, getUsuario());
         pst.setString(2, password);
         pst.setString(3, getTipo_usuario());
+        pst.setString(4,"Alta");
         int res = pst.executeUpdate();
         if (res > 0) {
             obtenerUltimoId();
+        }
         }
     }
 
@@ -249,7 +297,8 @@ public class Usuarios {
                                 rs.getString("info_usuario.apellido_paterno"),
                                 rs.getString("info_usuario.apellido_materno"),
                                 rs.getString("usuario.username"),
-                                rs.getString("usuario.tipo_usuario")
+                                rs.getString("usuario.tipo_usuario"),
+                                rs.getString("usuario.status")
                         )
                 );
 
@@ -260,18 +309,20 @@ public class Usuarios {
 
         }
     }
-    public void actualizar(int id, String nombre, String apellidoPaterno, String apellidoMaterno) throws SQLException{
+    public void actualizar(int id, String nombre, String apellidoPaterno, String apellidoMaterno,String usuario, String rol) throws SQLException{
     Conexion con = new Conexion();
         Connection st = con.conectate();
 
         try {
             Statement execute = st.createStatement();
-            PreparedStatement pst = st.prepareStatement("UPDATE inu SET inu.nombre = ?, inu.apellido_paterno = ?, inu.apellido_materno = ?, us.username,us.rol FROM info_usuario inu INNER JOIN usuario us ON inu.usuario_id=us.id WHERE inu.usuario_id = ?");
+            PreparedStatement pst = st.prepareStatement("UPDATE info_usuario INNER JOIN usuario ON info_usuario.usuario_id=usuario.id SET info_usuario.nombre = ?, info_usuario.apellido_paterno = ?, info_usuario.apellido_materno = ?, usuario.username = ?, usuario.tipo_usuario = ?  WHERE info_usuario.usuario_id = ?");
 
             pst.setString(1, nombre);
             pst.setString(2, apellidoPaterno);
             pst.setString(3, apellidoMaterno);
-            pst.setInt(8, id);
+            pst.setString(4, usuario);
+            pst.setString(5, rol);
+            pst.setInt(6, id);
 
             int res = pst.executeUpdate();
 
@@ -284,7 +335,7 @@ public class Usuarios {
             }
 
         } catch (Exception e) {
-           
+           System.err.println(e);
             Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
             dialogoAlerta.setTitle("Error");
             dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
@@ -292,5 +343,135 @@ public class Usuarios {
             dialogoAlerta.showAndWait();
         }
         st.close();
+    }
+    
+    public static void buscarUsuarios(ObservableList<Usuarios> lista,String valor) {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs;
+
+        try {
+            Statement execute = st.createStatement();
+
+            PreparedStatement pst = st.prepareStatement(
+                    "SELECT * FROM info_usuario INNER JOIN usuario ON info_usuario.usuario_id=usuario.id WHERE info_usuario.nombre LIKE '%" + valor + "%'"+" OR info_usuario.apellido_paterno LIKE '%" + valor + "%'"+" OR info_usuario.apellido_materno LIKE '%" + valor + "%'");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+
+                lista.add(
+                        new Usuarios(
+                                rs.getInt("usuario.id"),
+                                rs.getString("info_usuario.nombre"),
+                                rs.getString("info_usuario.apellido_paterno"),
+                                rs.getString("info_usuario.apellido_materno"),
+                                rs.getString("usuario.username"),
+                                rs.getString("usuario.tipo_usuario"),
+                                rs.getString("usuario.status")
+                        )
+                );
+
+            }
+
+        } catch (Exception e) {
+            System.err.println("excetpcion " + e);
+
+        }
+    }
+    public void darDeBaja(int id) throws SQLException{
+     Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE usuario SET status = ? WHERE id = ?");
+
+            pst.setString(1, "Baja");
+          
+            pst.setInt(2, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha dado de baja con éxito");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+           System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        }
+        st.close();
+    }
+    
+    public void reactivar(int id) throws SQLException{
+     Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE usuario SET status = ? WHERE id = ?");
+
+            pst.setString(1, "Alta");
+          
+            pst.setInt(2, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha reactivado con éxito");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+           System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        }
+        st.close();
+    }
+    public void eliminar(int id) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("DELETE usuario.* FROM usuario WHERE usuario.id = ?");
+
+            pst.setInt(1, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha eliminado el usuario");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+
+        }
+        st.close();
+
     }
 }

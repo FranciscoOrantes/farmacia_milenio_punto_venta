@@ -7,23 +7,27 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="panePrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="605.0" prefWidth="978.0" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controlador.VentanaInicialController">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="48.0" prefWidth="187.0" style="-fx-background-color: #0fbcf9;">
+            <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="48.0" prefWidth="187.0" style="-fx-background-color: white;">
                <children>
-                  <ImageView fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Imagenes/farmacia.png" />
-                     </image>
-                  </ImageView>
-                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-family: Quicksand; -fx-font-weight: bold;" styleClass="root" text="Farmacia Milenio">
+                  <Text fill="#56934d" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="root" text="FARMACIA">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
+                     <font>
+                        <Font name="Segoe UI Bold" size="22.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#4f78b7" strokeType="OUTSIDE" strokeWidth="0.0" text="MILENIO">
+                     <font>
+                        <Font name="Segoe UI Bold" size="22.0" />
+                     </font>
                   </Text>
                </children>
                <opaqueInsets>
@@ -163,7 +167,7 @@
                   </Text>
                </children>
             </HBox>
-            <HBox onMouseClicked="#cambiarVistaUsuarios" styleClass="hover_border">
+            <HBox fx:id="hBoxUsuarios" onMouseClicked="#cambiarVistaUsuarios" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -183,7 +187,7 @@
                   </Text>
                </children>
             </HBox>
-            <HBox layoutX="10.0" layoutY="290.0" onMouseClicked="#cambiarVistaProveedores" styleClass="hover_border">
+            <HBox fx:id="hBoxProveedores" layoutX="10.0" layoutY="290.0" onMouseClicked="#cambiarVistaProveedores" styleClass="hover_border">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
@@ -207,6 +211,18 @@
       </VBox>
    </left>
    <center>
-      <AnchorPane BorderPane.alignment="CENTER" />
+      <AnchorPane style="-fx-background-color: WHITE;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="222.0" fitWidth="378.0" layoutX="183.0" layoutY="174.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="139.0" AnchorPane.leftAnchor="183.0" AnchorPane.rightAnchor="251.56234741210938" AnchorPane.topAnchor="174.0">
+               <image>
+                  <Image url="@../Imagenes/logo2.png" />
+               </image>
+            </ImageView>
+            <Text fill="#4f78b7" layoutX="207.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PUNTO DE VENTA">
+               <font>
+                  <Font name="Segoe UI Bold" size="36.0" />
+               </font>
+            </Text>
+         </children></AnchorPane>
    </center>
 </BorderPane>

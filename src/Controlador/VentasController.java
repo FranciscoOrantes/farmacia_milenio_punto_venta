@@ -27,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -72,6 +73,7 @@ public class VentasController implements Initializable {
     private int contador = 0;
     public static List<String> nombresProductos;
     public static List<Integer> cantidadProductos;
+    String path = "/Imagenes/icono.png";
     public static List<Double> precioProductos;
 
     public static Double importeTotal;
@@ -93,17 +95,19 @@ public class VentasController implements Initializable {
         cantidad = Integer.valueOf(cantidadTxt.getText());
         codigo = codigoTxt.getText();
         //productos = FXCollections.observableArrayList();
-        Productos.filtradoCodigo(productos, cantidad, codigo);
+        if (Productos.filtradoCodigo(productos, cantidad, codigo)) {
+            calcularTotal();
+            contador = contador + cantidad;
+
+            cantidadText.setText(String.valueOf(contador));
+
+        };
         tablaVenta.setItems(productos);
         cantCol.setCellValueFactory(new PropertyValueFactory<Productos, Integer>("cantidadT"));
         codCol.setCellValueFactory(new PropertyValueFactory<Productos, String>("codigoT"));
         desCol.setCellValueFactory(new PropertyValueFactory<Productos, String>("descripcionT"));
         nomCol.setCellValueFactory(new PropertyValueFactory<Productos, String>("nombreT"));
         imporCol.setCellValueFactory(new PropertyValueFactory<Productos, String>("precioT"));
-        calcularTotal();
-        contador = contador + cantidad;
-
-        cantidadText.setText(String.valueOf(contador));
         cantidadTxt.setText("");
         codigoTxt.setText("");
         System.out.println("ARRAY DE PRODUCTOS NOMBRES " + nombresProductos.size());
@@ -149,8 +153,10 @@ public class VentasController implements Initializable {
     public void abrirVentanaCobro() throws IOException {
         cantidad = Integer.parseInt(cantidadText.getText());
         loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/Cobro.fxml"));
+        
         Parent root1 = (Parent) loaderInicioAdmin.load();
         ventanaInicio = new Stage();
+        VentasController.ventanaInicio.getIcons().add(new Image(String.valueOf(getClass().getResource(path))));
         ventanaInicio.setScene(new Scene(root1));
 
         ventanaInicio.show();
@@ -176,7 +182,7 @@ public class VentasController implements Initializable {
         tablaVenta.setItems(productos);
     }
 
-    public void cancelarVenta() {
+    public  void cancelarVenta() {
         cantidadProductos.clear();
         nombresProductos.clear();
         precioProductos.clear();

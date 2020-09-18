@@ -9,12 +9,15 @@ import Modelo.Proveedores;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 /**
@@ -35,6 +38,8 @@ public class RegistroProveedorController implements Initializable {
     @FXML
     public Button btnRegistrar;
     @FXML
+    public Button btnLimpiar;
+    @FXML
     public Text textTitulo;
     private String razon_social;
     private String direccion;
@@ -53,10 +58,11 @@ public class RegistroProveedorController implements Initializable {
             direccionTxt.setText(ProveedoresController.direccion);
             telefonoTxt.setText(ProveedoresController.telefono);
             correoTxt.setText(ProveedoresController.correo);
+            btnLimpiar.setVisible(false);
         }
     }
 
-    public void registrar() throws Exception {
+    public void registrar(Event event) throws Exception {
         if (btnRegistrar.getText().equals("Registrar")) {
             if (razon_socialTxt.getText().equals("") || direccionTxt.getText().equals("") || telefonoTxt.getText().equals("") || correoTxt.getText().equals("")) {
                 Alert dialogoAlerta = new Alert(Alert.AlertType.WARNING);
@@ -80,13 +86,16 @@ public class RegistroProveedorController implements Initializable {
                 direccionTxt.setText("");
                 telefonoTxt.setText("");
                 correoTxt.setText("");
+                Node source = (Node) event.getSource();
+                Stage stage = (Stage) source.getScene().getWindow();
+                stage.close();
             }
         } else {
-            actualizar();
+            actualizar(event);
         }
     }
 
-    public void actualizar() throws SQLException {
+    public void actualizar(Event event) throws SQLException {
 
         if (razon_socialTxt.getText().equals("") || direccionTxt.getText().equals("") || telefonoTxt.getText().equals("") || correoTxt.getText().equals("")) {
             Alert dialogoAlerta = new Alert(Alert.AlertType.WARNING);
@@ -101,8 +110,16 @@ public class RegistroProveedorController implements Initializable {
             correo = correoTxt.getText();
             Proveedores proveedor = new Proveedores();
             proveedor.actualizar(ProveedoresController.idProveedor, razon_social, direccion, telefono, correo);
-            ProveedoresController proveedores = new ProveedoresController();
-            proveedores.inicializarTablaProveedores();
+            Node source = (Node) event.getSource();
+            Stage stage = (Stage) source.getScene().getWindow();
+            stage.close();
         }
+    }
+
+    public void limpiar() {
+        razon_socialTxt.setText("");
+        direccionTxt.setText("");
+        telefonoTxt.setText("");
+        correoTxt.setText("");
     }
 }

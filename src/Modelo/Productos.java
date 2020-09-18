@@ -215,6 +215,15 @@ public class Productos {
     public SimpleStringProperty rubroT = new SimpleStringProperty();
     public SimpleStringProperty proveedorT = new SimpleStringProperty();
 
+    public String getStatusT() {
+        return statusT.get();
+    }
+
+    public void setStatusT(SimpleStringProperty statusT) {
+        this.statusT = statusT;
+    }
+    public SimpleStringProperty statusT = new SimpleStringProperty();
+
     public Productos() {
     }
     //Agregar a la tabla Ventas
@@ -228,7 +237,7 @@ public class Productos {
     }
 
     public Productos(Integer id, String codigo, String nombre, String descripcion, Double precio, Integer cantidad,
-            String presentacion, String sustancia, String tipo, String rubro, String proveedor) {
+            String presentacion, String sustancia, String tipo, String rubro, String proveedor,String status) {
         this.id = new SimpleIntegerProperty(id);
         this.codigoT = new SimpleStringProperty(codigo);
         this.nombreT = new SimpleStringProperty(nombre);
@@ -240,6 +249,7 @@ public class Productos {
         this.tipoT = new SimpleStringProperty(tipo);
         this.rubroT = new SimpleStringProperty(rubro);
         this.proveedorT = new SimpleStringProperty(proveedor);
+        this.statusT = new SimpleStringProperty(status);
     }
 
     public void registrarProductos() {
@@ -248,7 +258,7 @@ public class Productos {
         try {
 
             Statement execute = st.createStatement();
-            PreparedStatement pst = st.prepareStatement("INSERT INTO producto(nombre,descripcion,precio,cantidad,codigo_barras,presentacion,sustancia_activa,tipo_producto,rubro,proveedor_id) VALUES(?,?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pst = st.prepareStatement("INSERT INTO producto(nombre,descripcion,precio,cantidad,codigo_barras,presentacion,sustancia_activa,tipo_producto,rubro,proveedor_id,status) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             pst.setString(1, getNombre());
             pst.setString(2, getDescripcion());
             pst.setDouble(3, getPrecio());
@@ -259,6 +269,7 @@ public class Productos {
             pst.setString(8, getTipo());
             pst.setString(9, getRubro());
             pst.setInt(10, getIdProveedor());
+            pst.setString(11,"Alta");
             int res = pst.executeUpdate();
             if (res > 0) {
                 mensajeExito();
@@ -304,7 +315,8 @@ public class Productos {
                                 rs.getString("producto.sustancia_activa"),
                                 rs.getString("producto.tipo_producto"),
                                 rs.getString("producto.rubro"),
-                                rs.getString("proveedor.razon_social")
+                                rs.getString("proveedor.razon_social"),
+                                rs.getString("producto.status")
                         )
                 );
 
@@ -316,7 +328,7 @@ public class Productos {
         }
     }
 
-    public static void filtradoCodigo(ObservableList<Productos> lista,int cantidad, String codigo) throws SQLException {
+    public static boolean filtradoCodigo(ObservableList<Productos> lista,int cantidad, String codigo) throws SQLException {
         Conexion con = new Conexion();
         Connection st = con.conectate();
         ResultSet rs;
@@ -326,6 +338,27 @@ public class Productos {
         pst.setString(1, codigo);
         rs = pst.executeQuery();
         while (rs.next()) {
+            if(rs.getInt("producto.cantidad")<cantidad||rs.getString("producto.status").equals("Baja")){
+            
+                if(rs.getInt("producto.cantidad")<cantidad){
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Advertencia");
+            dialogoAlerta.setHeaderText("Cantidad no válida");
+            dialogoAlerta.setContentText("No existe esa cantidad en el inventario");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+            return false;
+            }
+            if(rs.getString("producto.status").equals("Baja")){
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Advertencia");
+            dialogoAlerta.setHeaderText("Producto dado de baja");
+            dialogoAlerta.setContentText("Ese producto está inactivo, favor de contactar al administrador");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+            return false;
+            }
+            }else{
             lista.add(
                     new Productos(
                             rs.getInt("producto.id"),
@@ -336,7 +369,190 @@ public class Productos {
                             rs.getDouble("producto.precio")
                     )
             );
+            return true;
+            }
+            
+            
         }
+          Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Advertencia");
+            dialogoAlerta.setHeaderText("Producto no válido");
+            dialogoAlerta.setContentText("El código introducido no existe");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        return false;
+    }
+    
+    public static void filtradoBuscar(ObservableList<Productos> lista, String codigo) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs;
+        Statement execute = st.createStatement();
+        PreparedStatement pst = st.prepareStatement(
+                "SELECT * FROM producto INNER JOIN proveedor ON producto.proveedor_id=proveedor.id WHERE producto.codigo_barras LIKE '%" + codigo + "%'"+" OR producto.nombre LIKE '%" + codigo + "%'");
+        
+        rs = pst.executeQuery();
+        while (rs.next()) {
+            lista.add(
+                    new Productos(
+                            rs.getInt("producto.id"),
+                                rs.getString("producto.codigo_barras"),
+                                rs.getString("producto.nombre"),
+                                rs.getString("producto.descripcion"),
+                                rs.getDouble("producto.precio"),
+                                rs.getInt("producto.cantidad"),
+                                rs.getString("producto.presentacion"),
+                                rs.getString("producto.sustancia_activa"),
+                                rs.getString("producto.tipo_producto"),
+                                rs.getString("producto.rubro"),
+                                rs.getString("proveedor.razon_social"),
+                                rs.getString("producto.status")
+                    )
+            );
+        }
+    }
+    public void actualizar(int id, String nombre, String codigo_barras, String descripcion, Double precio, int cantidad, String presentacion,
+            String sustancia_activa, String tipo_producto, String rubro,int proveedor_id) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE producto SET nombre = ?, codigo_barras = ?, descripcion = ?, precio = ?, cantidad = ?"
+                    + ", presentacion = ?, sustancia_activa = ?, tipo_producto = ?, rubro = ?, proveedor_id = ? WHERE id = ?");
+
+            pst.setString(1, nombre);
+            pst.setString(2, codigo_barras);
+            pst.setString(3, descripcion);
+            pst.setDouble(4, precio);
+            pst.setInt(5, cantidad);
+            pst.setString(6, presentacion);
+            pst.setString(7, sustancia_activa);
+            pst.setString(8, tipo_producto);
+            pst.setString(9, rubro);
+            pst.setInt(10, proveedor_id);
+            pst.setInt(11, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se han actualizado los Datos");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+            
+        }
+        st.close();
+    }
+    
+    public void darDeBaja(int id) throws SQLException{
+    Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE producto SET status = ? WHERE id = ?");
+
+            pst.setString(1, "Baja");
+           
+            pst.setInt(2, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha dado de baja el producto");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+            
+        }
+        st.close();
+    }
+    
+    public void reactivar(int id) throws SQLException{
+    Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE producto SET status = ? WHERE id = ?");
+
+            pst.setString(1, "Alta");
+           
+            pst.setInt(2, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha reactivado el producto");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+            
+        }
+        st.close();
+    }
+     public void eliminar(int id) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("DELETE producto.* FROM producto WHERE producto.id = ?");
+
+            pst.setInt(1, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha eliminado el producto");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+
+        }
+        st.close();
+
     }
 
 }

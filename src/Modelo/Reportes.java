@@ -28,7 +28,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class Reportes {
 
-    public void generarTicket(int articulosTotales,Double total,Double pago, Double cambio, List<String> nombres, List<Integer> cantidades, List<Double> precios) {
+    public void generarTicket(String cajero,int articulosTotales,Double total,Double pago, Double cambio, List<String> nombres, List<Integer> cantidades, List<Double> precios) {
         Date date = new Date();
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
         System.out.println("Hora: " + hourFormat.format(date));
@@ -41,10 +41,11 @@ public class Reportes {
         try {
             JasperReport ticket = null;
             String path = "/reportes/ticket.jasper";
-            String path2 = "/Imagenes/logo.png";
+            String path2 = "/Imagenes/icono.png";
             Map parametro = new HashMap();
             parametro.put("logo", this.getClass().getResourceAsStream(path2));
             parametro.put("fechahora", fechaHora);
+             parametro.put("cajero", cajero);
             parametro.put("total", total);
             parametro.put("pago",pago);
             parametro.put("cambio",cambio);
@@ -67,7 +68,7 @@ public class Reportes {
         }
     }
     public void generarCorteCaja(String fecha,Double total,List<String>productos,List<String>codigos,List<Integer>cantidades,
-            List<Double>montos,List<String>cajeros){
+            List<Double>montos,List<String>cajeros,List<String>fechas){
     JRDataSource jr = new JREmptyDataSource();
     try{
         JasperReport ticket = null;
@@ -81,6 +82,7 @@ public class Reportes {
         parametro.put("cantidades", cantidades);
         parametro.put("montos", montos);
         parametro.put("cajeros", cajeros);
+        parametro.put("fechas", fechas);
         
       
          ticket = (JasperReport) JRLoader.loadObject(getClass().getResource(path));

@@ -21,14 +21,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -36,17 +39,17 @@ import javafx.scene.text.Text;
  * @author Francisco
  */
 public class CobroController implements Initializable {
+
     @FXML
     public Text totalText;
     @FXML
     public TextField pagoTxt;
     @FXML
     public Text cambioText;
-    
+    public static String click = "No";
     private Double cambio;
     private Double pago;
     private Double total;
-   
 
     /**
      * Initializes the controller class.
@@ -56,43 +59,61 @@ public class CobroController implements Initializable {
         totalText.setText(String.valueOf(VentasController.importeTotal));
         total = Double.parseDouble(totalText.getText());
         EnviarConEnter();
-      
-    }
-    
-    public void EnviarConEnter(){
 
-    pagoTxt.setOnKeyPressed(new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent event) {
-            if(event.getCode() == KeyCode.ENTER){
-                cambio =Double.parseDouble(pagoTxt.getText())-Double.parseDouble(totalText.getText());
-                cambioText.setText(String.valueOf(cambio));
-            }
-        }
-    });
     }
-    public void imprimirTicket() throws SQLException {
+
+    public void EnviarConEnter() {
+
+        pagoTxt.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    cambio = Double.parseDouble(pagoTxt.getText()) - Double.parseDouble(totalText.getText());
+                    cambioText.setText(String.valueOf(cambio));
+                }
+            }
+        });
+    }
+
+    public void imprimirTicket(Event event) throws SQLException {
+        cambio = Double.parseDouble(pagoTxt.getText()) - Double.parseDouble(totalText.getText());
+        cambioText.setText(String.valueOf(cambio));
         pago = Double.parseDouble(pagoTxt.getText());
         cambio = Double.parseDouble(cambioText.getText());
-        
+
         Reportes ticket = new Reportes();
-        ticket.generarTicket(VentasController.cantidad, total,pago,cambio, VentasController.nombresProductos, VentasController.cantidadProductos, VentasController.precioProductos);
+        ticket.generarTicket(InicioSesion.nombreCompleto, VentasController.cantidad, total, pago, cambio, VentasController.nombresProductos, VentasController.cantidadProductos, VentasController.precioProductos);
+
         registrarVenta();
+
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
+        VentasController ventas = new VentasController();
+        ventas.cancelarVenta();
     }
+
     public void txtNumerico(KeyEvent evt) {
         char car = evt.getCharacter().charAt(0);
         if ((car < '0' || car > '9') && (car > '.')) {
             evt.consume();
         }
     }
-    public void registrarVenta() throws SQLException{
-    Date objDate = new Date(); // Sistema actual La fecha y la hora se asignan a objDate 
-    String strDateFormat = "dd-MM-yyyy"; // El formato de fecha está especificado  
-    SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
-    
-    String fecha = objSDF.format(objDate);
-    Ventas.registrarVentas(VentasController.cantidadProductos,VentasController.productos, fecha,InicioSesion.idUsuarioActivo);
+
+    public void registrarVenta() throws SQLException {
+        Date objDate = new Date(); // Sistema actual La fecha y la hora se asignan a objDate 
+        Date fechaF = new Date();
+        String strDateFormat = "dd-MM-yyyy"; // El formato de fecha está especificado  
+        String formato2 = "yyyy-MM-dd";
+        
+
+        SimpleDateFormat objSDF = new SimpleDateFormat(strDateFormat);
+        SimpleDateFormat formato2D = new SimpleDateFormat(formato2);
+
+        String fecha = objSDF.format(objDate);
+        String fechaFinal = formato2D.format(objDate);
+        
+        Ventas.registrarVentas(VentasController.cantidadProductos, VentasController.productos, fecha, InicioSesion.idUsuarioActivo, fechaFinal);
     }
-    
 
 }

@@ -110,16 +110,26 @@ public class Proveedores {
     public SimpleStringProperty direccionT = new SimpleStringProperty();
     public SimpleStringProperty telefonoT = new SimpleStringProperty();
     public SimpleStringProperty correoT = new SimpleStringProperty();
+    public SimpleStringProperty statusT = new SimpleStringProperty();
+
+    public String getStatusT() {
+        return statusT.get();
+    }
+
+    public void setStatusT(SimpleStringProperty statusT) {
+        this.statusT = statusT;
+    }
 
     public Proveedores() {
     }
 
-    public Proveedores(Integer id, String razon_social, String direccion, String telefono, String correo) {
+    public Proveedores(Integer id, String razon_social, String direccion, String telefono, String correo, String status) {
         this.id = new SimpleIntegerProperty(id);
         this.razon_socialT = new SimpleStringProperty(razon_social);
         this.direccionT = new SimpleStringProperty(direccion);
         this.telefonoT = new SimpleStringProperty(telefono);
         this.correoT = new SimpleStringProperty(correo);
+        this.statusT = new SimpleStringProperty(status);
 
     }
 
@@ -147,7 +157,8 @@ public class Proveedores {
                                 rs.getString("proveedor.razon_social"),
                                 rs.getString("proveedor.direccion"),
                                 rs.getString("proveedor.telefono"),
-                                rs.getString("proveedor.correo")
+                                rs.getString("proveedor.correo"),
+                                rs.getString("proveedor.status")
                         )
                 );
 
@@ -164,11 +175,12 @@ public class Proveedores {
 
         Statement execute = st.createStatement();
         PreparedStatement pst = st.prepareStatement(
-                "INSERT INTO proveedor(razon_social,direccion,telefono,correo) VALUES(?,?,?,?)");
+                "INSERT INTO proveedor(razon_social,direccion,telefono,correo,status) VALUES(?,?,?,?,?)");
         pst.setString(1, getRazonSocial());
         pst.setString(2, getDireccion());
         pst.setString(3, getTelefono());
         pst.setString(4, getCorreo());
+        pst.setString(5, "Alta");
         int res = pst.executeUpdate();
         if (res > 0) {
             mensajeExito();
@@ -281,4 +293,136 @@ public class Proveedores {
         }
         st.close();
     }
+
+    public static void buscarProveedores(ObservableList<Proveedores> lista, String valor) {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs;
+
+        try {
+            Statement execute = st.createStatement();
+
+            PreparedStatement pst = st.prepareStatement(
+                    "SELECT * FROM proveedor WHERE info_usuario.nombre LIKE '%" + valor + "%'");
+            rs = pst.executeQuery();
+            while (rs.next()) {
+
+                lista.add(
+                        new Proveedores(
+                                rs.getInt("proveedor.id"),
+                                rs.getString("proveedor.razon_social"),
+                                rs.getString("proveedor.direccion"),
+                                rs.getString("proveedor.telefono"),
+                                rs.getString("proveedor.correo"),
+                                rs.getString("proveedor.status")
+                        )
+                );
+
+            }
+
+        } catch (Exception e) {
+            System.err.println("excetpcion " + e);
+
+        }
+
+    }
+
+    public void darDeBaja(int id) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE proveedor SET status = ? WHERE id = ?");
+
+            pst.setString(1, "Baja");
+
+            pst.setInt(2, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha dado de baja con éxito");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        }
+        st.close();
+    }
+
+    public void reactivar(int id) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE proveedor SET status = ? WHERE id = ?");
+
+            pst.setString(1, "Alta");
+
+            pst.setInt(2, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha reactivado con éxito");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+        }
+        st.close();
+    }
+
+    public void eliminar(int id) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("DELETE proveedor.* FROM proveedor WHERE proveedor.id = ?");
+
+            pst.setInt(1, id);
+
+            int res = pst.executeUpdate();
+
+            if (res > 0) {
+                Alert dialogoAlerta = new Alert(Alert.AlertType.INFORMATION);
+                dialogoAlerta.setTitle("Exito");
+                dialogoAlerta.setHeaderText("Se ha eliminado el proveedor");
+                dialogoAlerta.initStyle(StageStyle.UTILITY);
+                dialogoAlerta.showAndWait();
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+
+        }
+        st.close();
+    }
+
 }

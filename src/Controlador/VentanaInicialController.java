@@ -21,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -38,11 +39,15 @@ public class VentanaInicialController implements Initializable {
     @FXML
     public Button btnProductos;
     public BorderPane panePrincipal;
-    static Stage ventanaInicio;
-    static FXMLLoader loaderInicioAdmin;
-
+    public static Stage ventanaInicio;
+    public static FXMLLoader loaderInicioAdmin;
+    String path = "/Imagenes/icono.png";
     @FXML
     public Text txtFecha;
+    @FXML
+    public HBox hBoxUsuarios;
+    @FXML
+    public HBox hBoxProveedores;
     @FXML
     public Text txtNombreUsuario;
     private String cadenaBienvenida;
@@ -52,10 +57,14 @@ public class VentanaInicialController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         obtenerFecha();
         cadenaBienvenida = "Bienvenido " + InicioSesion.rol + ": " + InicioSesion.nombreCompleto;
         txtNombreUsuario.setText(cadenaBienvenida);
-
+        if (InicioSesion.rol.equals("Cajero")) {
+            hBoxUsuarios.setVisible(false);
+            hBoxProveedores.setVisible(false);
+        }
     }
 
     @FXML
@@ -69,6 +78,7 @@ public class VentanaInicialController implements Initializable {
 
     @FXML
     public void cambiarVistaUsuarios() {
+        System.out.println("VISTA USUARIOS");
         FXMLoader objeto = new FXMLoader();
         AnchorPane vista = objeto.getPage("Usuarios");
         panePrincipal.setCenter(vista);
@@ -112,6 +122,7 @@ public class VentanaInicialController implements Initializable {
         loaderInicioAdmin = new FXMLLoader(getClass().getResource("/Vista/InicioSesion.fxml"));
         Parent root1 = (Parent) loaderInicioAdmin.load();
         ventanaInicio = new Stage();
+        ventanaInicio.getIcons().add(new Image(String.valueOf(getClass().getResource(path))));
         ventanaInicio.setScene(new Scene(root1));
 
         ventanaInicio.setTitle("Inicio de sesión");

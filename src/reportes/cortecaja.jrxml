@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="721e0791-2631-4b5c-8796-ba442ae7cf0b">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="1224"/>
+	<property name="ireport.y" value="240"/>
 	<subDataset name="dataset1" uuid="862b53ab-a863-401f-95ab-3918758ebe39">
 		<field name="_THIS" class="java.lang.String"/>
 	</subDataset>
@@ -18,6 +18,9 @@
 	<subDataset name="dataset5" uuid="62578617-97d1-498e-892f-f70533f1b5bb">
 		<field name="_THIS" class="java.lang.String"/>
 	</subDataset>
+	<subDataset name="dataset6" uuid="8aa5ab4e-f1f9-4c9e-9f82-d5675b2182c6">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
 	<parameter name="fecha" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -28,6 +31,7 @@
 	<parameter name="cantidades" class="java.util.List"/>
 	<parameter name="montos" class="java.util.List"/>
 	<parameter name="cajeros" class="java.util.List"/>
+	<parameter name="fechas" class="java.util.List"/>
 	<queryString>
 		<![CDATA[SELECT producto.nombre as nombre, producto.folio as folio , SUM(venta.cantidad) as cantidad, SUM(venta.monto) as monto FROM producto INNER JOIN venta ON producto.id = venta.producto_id WHERE venta.fecha=$P{fecha} GROUP BY producto.nombre]]>
 	</queryString>
@@ -63,14 +67,14 @@
 				<text><![CDATA[Farmacia Milenio]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="59" width="37" height="20" uuid="f2fab0bb-3ee4-4116-981e-c820db024ca2"/>
+				<reportElement x="0" y="59" width="91" height="20" uuid="f2fab0bb-3ee4-4116-981e-c820db024ca2"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Fecha:]]></text>
+				<text><![CDATA[Fecha del reporte:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="37" y="59" width="100" height="20" uuid="a69e6a6b-0544-4ee6-add6-09514ccb07db"/>
+				<reportElement x="91" y="59" width="100" height="20" uuid="a69e6a6b-0544-4ee6-add6-09514ccb07db"/>
 				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -96,14 +100,14 @@
 				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="248" y="44" width="112" height="20" uuid="a690a264-036e-4c3b-8efd-977daaa95008"/>
+				<reportElement x="248" y="44" width="53" height="20" uuid="a690a264-036e-4c3b-8efd-977daaa95008"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cantidad]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="360" y="44" width="58" height="20" uuid="1efe5ed7-babd-4529-b4ad-7264964b237c"/>
+				<reportElement x="302" y="44" width="58" height="20" uuid="1efe5ed7-babd-4529-b4ad-7264964b237c"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
@@ -124,11 +128,18 @@
 				<text><![CDATA[Detalles]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="418" y="44" width="136" height="20" uuid="b25ab762-8c7f-4241-a10a-4d2cad906f92"/>
+				<reportElement x="359" y="46" width="136" height="18" uuid="b25ab762-8c7f-4241-a10a-4d2cad906f92"/>
 				<textElement>
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Cajero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="495" y="46" width="60" height="18" uuid="e79821dc-bef2-41d2-a01d-fd8189878774"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -163,21 +174,21 @@
 				</jr:list>
 			</componentElement>
 			<componentElement>
-				<reportElement x="248" y="0" width="112" height="22" uuid="3abde047-7fef-47e7-b564-0698ab504332"/>
+				<reportElement x="248" y="0" width="53" height="22" uuid="3abde047-7fef-47e7-b564-0698ab504332"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset3" uuid="ae911b8c-c6a4-4348-89d2-f815648507c3">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{cantidades})]]></dataSourceExpression>
 					</datasetRun>
-					<jr:listContents height="22" width="112">
+					<jr:listContents height="22" width="53">
 						<textField>
-							<reportElement x="0" y="2" width="112" height="20" uuid="3beb9394-9344-44d9-ba32-ec2864bbdeee"/>
+							<reportElement x="0" y="2" width="53" height="20" uuid="3beb9394-9344-44d9-ba32-ec2864bbdeee"/>
 							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
 						</textField>
 					</jr:listContents>
 				</jr:list>
 			</componentElement>
 			<componentElement>
-				<reportElement x="360" y="0" width="58" height="22" uuid="95934e04-c9d1-4f67-910c-4e9bb43c7181"/>
+				<reportElement x="301" y="0" width="58" height="22" uuid="95934e04-c9d1-4f67-910c-4e9bb43c7181"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
 					<datasetRun subDataset="dataset4" uuid="7d668491-fcce-4c9d-bd7b-d6969e035391">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{montos})]]></dataSourceExpression>
@@ -191,14 +202,31 @@
 				</jr:list>
 			</componentElement>
 			<componentElement>
-				<reportElement x="418" y="0" width="136" height="22" uuid="4ce55c60-9e7c-41bc-91a5-1e2ba072b7ff"/>
+				<reportElement x="359" y="0" width="136" height="22" uuid="4ce55c60-9e7c-41bc-91a5-1e2ba072b7ff"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
-					<datasetRun subDataset="dataset5" uuid="9d8b4ab9-f0c5-44b4-b929-34c72ea657b4">
+					<datasetRun subDataset="dataset5" uuid="cc8270c6-4d2c-4206-83c9-18d5c76f20c4">
 						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{cajeros})]]></dataSourceExpression>
 					</datasetRun>
 					<jr:listContents height="22" width="136">
 						<textField>
-							<reportElement x="0" y="2" width="136" height="20" uuid="a082b9f4-fe6b-4562-b28a-600907ccead7"/>
+							<reportElement x="0" y="0" width="136" height="22" uuid="a082b9f4-fe6b-4562-b28a-600907ccead7"/>
+							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<componentElement>
+				<reportElement x="495" y="0" width="60" height="22" uuid="8d98802d-b953-479f-adaa-a7a1e9b23fbb"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset6" uuid="47856b20-c87f-4116-a729-16ce7cbc9ea2">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{fechas})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="22" width="60">
+						<textField>
+							<reportElement x="0" y="0" width="59" height="20" uuid="10e594d5-7fbd-4201-a074-238d031d6456"/>
+							<textElement>
+								<font size="10"/>
+							</textElement>
 							<textFieldExpression><![CDATA[$F{_THIS}]]></textFieldExpression>
 						</textField>
 					</jr:listContents>

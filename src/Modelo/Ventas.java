@@ -12,11 +12,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.List;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -38,6 +41,15 @@ public class Ventas {
     public SimpleIntegerProperty cantidadT = new SimpleIntegerProperty();
     public SimpleDoubleProperty montoT = new SimpleDoubleProperty();
     public SimpleStringProperty cajeroT = new SimpleStringProperty();
+
+    public String getFechaT() {
+        return fechaT.get();
+    }
+
+    public void setFechaT(SimpleStringProperty fechaT) {
+        this.fechaT = fechaT;
+    }
+    public SimpleStringProperty fechaT = new SimpleStringProperty();
 
     public Integer getId() {
         return id.get();
@@ -82,16 +94,75 @@ public class Ventas {
     public Ventas() {
     }
 
-    public Ventas(Integer id, String producto, String codigo, Integer cantidad, Double monto, String cajero) {
+    public Ventas(Integer id, String producto, String codigo, Integer cantidad, Double monto, String cajero,String fecha) {
         this.id = new SimpleIntegerProperty(id);
         this.productoT = new SimpleStringProperty(producto);
         this.codigoT = new SimpleStringProperty(codigo);
         this.cantidadT = new SimpleIntegerProperty(cantidad);
         this.montoT = new SimpleDoubleProperty(monto);
         this.cajeroT = new SimpleStringProperty(cajero);
+        this.fechaT = new SimpleStringProperty(fecha);
     }
 
-    public static void registrarVentas(List<Integer> cantidades, ObservableList<Productos> ventas, String fecha, int usuario_id) throws SQLException {
+    public static int recuperarCantidad(int id) {
+        int cantidad = 0;
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs = null;
+        try {
+            PreparedStatement pstVenta = st.prepareStatement(
+                    "SELECT cantidad FROM producto WHERE id = ? ");
+            pstVenta.setInt(1, id);
+            rs = pstVenta.executeQuery();
+            if (rs.next()) {
+                cantidad = rs.getInt("cantidad");
+            }
+        } catch (Exception e) {
+
+        }
+        return cantidad;
+    }
+
+    public static void actualizarCantidades(List<Integer> cantidades, ObservableList<Productos> ventas) throws SQLException {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+
+        try {
+            Statement execute = st.createStatement();
+            PreparedStatement pst = st.prepareStatement("UPDATE producto SET cantidad = ? WHERE id = ?");
+            for (Productos producto1 : ventas) {
+                int index = ventas.indexOf(producto1);
+
+                System.out.println("CANTIDAD COMPRADA " + cantidades.get(index));
+                int cantidadOriginal = recuperarCantidad(producto1.getId());
+                System.out.println("CANTIDAD ORIGINAL " + cantidadOriginal);
+                int cantidad = cantidadOriginal - cantidades.get(index);
+                System.out.println("CANTIDAD RESULTANTE " + cantidad);
+                int idProducto = producto1.getId();
+                System.out.println("ID PRODUCTO " + idProducto);
+                pst.setInt(1, cantidad);
+
+                pst.setInt(2, idProducto);
+                int res = pst.executeUpdate();
+
+                if (res > 0) {
+
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println(e);
+            Alert dialogoAlerta = new Alert(Alert.AlertType.ERROR);
+            dialogoAlerta.setTitle("Error");
+            dialogoAlerta.setHeaderText("Ha ocurrido un error con la Base de Datos");
+            dialogoAlerta.initStyle(StageStyle.UTILITY);
+            dialogoAlerta.showAndWait();
+
+        }
+        st.close();
+    }
+
+    public static void registrarVentas(List<Integer> cantidades, ObservableList<Productos> ventas, String fecha, int usuario_id, String fechaF) throws SQLException {
         Conexion con = new Conexion();
         SecureRandom random = new SecureRandom();
         String folio = new BigInteger(130, random).toString(32);
@@ -99,7 +170,7 @@ public class Ventas {
         Connection st = con.conectate();
         try {
             Statement execute = st.createStatement();
-            PreparedStatement pst = st.prepareStatement("INSERT INTO venta(producto_id,cantidad,monto,fecha,folio,usuario_id) VALUES(?,?,?,?,?,?)");
+            PreparedStatement pst = st.prepareStatement("INSERT INTO venta(producto_id,cantidad,monto,fecha,folio,usuario_id,fechaA) VALUES(?,?,?,?,?,?,?)");
             for (Productos producto1 : ventas) {
                 System.out.println("Cantidades " + cantidades.size());
                 System.out.println(producto1.getPrecioT());
@@ -115,8 +186,10 @@ public class Ventas {
                 pst.setString(4, fecha);
                 pst.setString(5, folio);
                 pst.setInt(6, usuario_id);
+                pst.setString(7, fechaF);
                 pst.executeUpdate();
             }
+            actualizarCantidades(cantidades, ventas);
         } catch (Exception e) {
             System.err.println("ERROR " + e);
         }
@@ -143,7 +216,8 @@ public class Ventas {
                                 rs.getString("producto.codigo_barras"),
                                 rs.getInt("venta.cantidad"),
                                 rs.getDouble("venta.monto"),
-                                rs.getString("info_usuario.nombre") + " " + rs.getString("info_usuario.apellido_paterno") + " " + rs.getString("info_usuario.apellido_materno")
+                                rs.getString("info_usuario.nombre") + " " + rs.getString("info_usuario.apellido_paterno") + " " + rs.getString("info_usuario.apellido_materno"),
+                                rs.getString("venta.fecha")
                         )
                 );
 
@@ -154,21 +228,76 @@ public class Ventas {
 
         }
     }
-     public Double sumaTotalDia(String fecha) throws SQLException {
+    
+    public static void llenarInfoVentasFechas(String fecha1, ObservableList<Ventas> lista,String fecha2) {
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs;
+
+        try {
+            Statement execute = st.createStatement();
+
+            PreparedStatement pst = st.prepareStatement(
+                    "SELECT * FROM venta INNER JOIN producto ON venta.producto_id = producto.id INNER JOIN info_usuario ON venta.usuario_id=info_usuario.usuario_id WHERE fechaA BETWEEN "+"'"+fecha1+"'" + " AND "+"'"+fecha2+"'");
+            
+            rs = pst.executeQuery();
+            System.out.println(pst);
+            while (rs.next()) {
+
+                lista.add(
+                        new Ventas(
+                                rs.getInt("venta.id"),
+                                rs.getString("producto.nombre"),
+                                rs.getString("producto.codigo_barras"),
+                                rs.getInt("venta.cantidad"),
+                                rs.getDouble("venta.monto"),
+                                rs.getString("info_usuario.nombre") + " " + rs.getString("info_usuario.apellido_paterno") + " " + rs.getString("info_usuario.apellido_materno"),
+                                rs.getString("venta.fecha")
+                        )
+                );
+
+            }
+
+        } catch (Exception e) {
+            System.err.println("excetpcion " + e);
+
+        }
+    }
+
+    public Double sumaTotalDia(String fecha) throws SQLException {
         Double total = 0.0;
         Conexion con = new Conexion();
         Connection st = con.conectate();
         ResultSet rs = null;
         try {
-           PreparedStatement pstVenta = st.prepareStatement(
+            PreparedStatement pstVenta = st.prepareStatement(
                     "SELECT SUM(venta.monto)as suma FROM venta WHERE fecha = ? ");
-          pstVenta.setString(1, fecha);
+            pstVenta.setString(1, fecha);
             rs = pstVenta.executeQuery();
-            if(rs.next()){
-            total = rs.getDouble("suma");
+            if (rs.next()) {
+                total = rs.getDouble("suma");
             }
-        }catch(Exception e){
-        
+        } catch (Exception e) {
+
+        }
+        return total;
+    }
+    
+    public Double sumaTotalFechas(String fecha1,String fecha2) throws SQLException {
+        Double total = 0.0;
+        Conexion con = new Conexion();
+        Connection st = con.conectate();
+        ResultSet rs = null;
+        try {
+            PreparedStatement pstVenta = st.prepareStatement(
+                    "SELECT SUM(venta.monto)as suma FROM venta WHERE fechaA BETWEEN "+"'"+fecha1+"'" + " AND "+"'"+fecha2+"'");
+           
+            rs = pstVenta.executeQuery();
+            if (rs.next()) {
+                total = rs.getDouble("suma");
+            }
+        } catch (Exception e) {
+
         }
         return total;
     }
